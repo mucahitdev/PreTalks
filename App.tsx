@@ -1,10 +1,10 @@
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Button, PaperProvider, Text } from "react-native-paper";
 
 import Fonts from "@/common/fonts";
 import { theme } from "@/common/theme";
-import Button from "@/components/button";
 
 export default function App() {
   const [fontsLoaded] = useFonts(Fonts);
@@ -12,14 +12,19 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Open up App.tsx to start working on your app !!!!
-      </Text>
-      <Button />
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider theme={theme}>
+      <View style={styles.container}>
+        <Text style={styles.text}>
+          Open up App.tsx to start working on your app !!!!
+        </Text>
+        <Button mode="text" onPress={() => console.log("Pressed")}>
+          Press me
+        </Button>
+        <StatusBar style="auto" />
+      </View>
+    </PaperProvider>
   );
 }
 
@@ -30,7 +35,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  text: {
-    fontFamily: theme.fonts[700],
-  },
+  text: {},
 });
