@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
 import Fonts from "@/common/fonts";
-import { theme } from "@/common/fonts/theme";
+import { theme } from "@/common/theme";
 import Button from "@/components/button";
 
 export default function App() {
