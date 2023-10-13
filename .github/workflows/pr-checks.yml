@@ -1,9 +1,14 @@
-name: PR Checks
+name: Checks for PRs and Commits
 
 on:
+  push:
+    branches:
+      - dev
+      - main
   pull_request:
     branches:
       - dev
+      - main
 
 jobs:
   check:
@@ -22,4 +27,5 @@ jobs:
       run: yarn install
 
     - name: Run Linter
-      run: yarn lint 
+      run: yarn lint
+
