@@ -23,11 +23,7 @@ export default function App() {
             flexDirection: "row",
           }}
         >
-          <BigButton icon="camera" onPress={() => console.log("hello")}>
-            Haloo
-          </BigButton>
-          <Spacer space={4} />
-          <BigButton icon="camera" onPress={() => console.log("hello")}>
+          <BigButton mode="text" icon="camera" onPress={() => console.log("hello")}>
             Haloo
           </BigButton>
         </View>
