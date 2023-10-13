@@ -1,3 +1,4 @@
+import LottieView from "lottie-react-native";
 import {
   FlatList,
   StyleSheet,
@@ -94,7 +95,14 @@ const RenderItem = ({
 
   return (
     <View style={[styles.itemContainer, { width: SCREEN_WIDTH }]}>
-      <Animated.Image source={item.image} style={imageAnimatedStyle} />
+      <Animated.View style={[imageAnimatedStyle, { alignItems: "center" }]}>
+        <LottieView
+          source={item.image}
+          autoPlay
+          loop
+          style={{ width: "100%", height: "100%" }}
+        />
+      </Animated.View>
 
       <Animated.View style={textAnimatedStyle}>
         <Text style={styles.itemTitle}>{item.title}</Text>
