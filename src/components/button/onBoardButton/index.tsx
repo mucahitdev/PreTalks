@@ -1,4 +1,5 @@
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React, { RefObject } from "react";
 import { FlatList, Pressable, StyleSheet } from "react-native";
 import Animated, {
@@ -23,6 +24,7 @@ export function OnBoardButton({
   flatListIndex,
   flatListRef,
 }: ButtonProps) {
+  const navigation = useNavigation();
   const buttonAnimationStyle = useAnimatedStyle(() => {
     const isLastScreen = flatListIndex.value === dataLength - 1;
     return {
@@ -56,7 +58,7 @@ export function OnBoardButton({
     if (!isLastScreen) {
       flatListRef.current?.scrollToIndex({ index: flatListIndex.value + 1 });
     } else {
-      console.log("Navigate to next screen");
+      navigation.navigate("HomeScreen" as never);
     }
   };
 
