@@ -1,3 +1,6 @@
+name: Publish to Expo
+
+
 on:
   push:
     branches:
