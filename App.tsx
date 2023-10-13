@@ -1,10 +1,11 @@
+import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { PaperProvider } from "react-native-paper";
 
 import Fonts from "@/common/fonts";
-import { theme } from "@/common/fonts/theme";
-import Button from "@/components/button";
+import { theme } from "@/common/theme";
+import AppNavigations from "@/navigations/appNavigations";
 
 export default function App() {
   const [fontsLoaded] = useFonts(Fonts);
@@ -12,25 +13,13 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Open up App.tsx to start working on your app !
-      </Text>
-      <Button />
+    <PaperProvider theme={theme}>
       <StatusBar style="auto" />
-    </View>
+      <NavigationContainer>
+        <AppNavigations />
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    fontFamily: theme.fonts[700],
-  },
-});
