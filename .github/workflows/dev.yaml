@@ -1,0 +1,38 @@
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+
+
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+
+
+
+      - name: Expo GitHub Action
+        uses: expo/expo-github-action@8.0.0
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+
+
+      - name: 🚀 Publish app
+        run: eas update --branch dev --message dev --non-interactive
