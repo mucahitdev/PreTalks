@@ -1,7 +1,7 @@
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import { PaperProvider, Text } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 
 import Fonts from "@/common/fonts";
 import { theme } from "@/common/theme";
@@ -27,7 +27,7 @@ export default function App() {
             Haloo
           </BigButton>
           <Spacer space={4} />
-          <BigButton mode="text" icon="camera" onPress={() => console.log("hello")}>
+          <BigButton icon="camera" onPress={() => console.log("hello")}>
             Haloo
           </BigButton>
         </View>
