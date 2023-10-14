@@ -18,7 +18,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { type Data, data } from "@/common/data/onBoarding";
-import { myColor } from "@/common/theme";
+import { myColor, theme } from "@/common/theme";
 import { OnBoardButton } from "@/components/button/onBoardButton";
 import { Pagination } from "@/components/common/pagination";
 
@@ -178,12 +178,13 @@ const styles = StyleSheet.create({
   itemTitle: {
     color: myColor.primary,
     fontSize: 22,
-    fontWeight: "bold",
+    fontFamily: theme.fonts.bold,
     textAlign: "center",
     marginBottom: 10,
   },
   itemText: {
     color: myColor.primary,
+    fontFamily: theme.fonts.medium,
     textAlign: "center",
     lineHeight: 20,
     marginHorizontal: 30,

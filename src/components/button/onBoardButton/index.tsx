@@ -9,7 +9,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { myColor } from "@/common/theme";
+import { myColor, theme } from "@/common/theme";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   text: {
     position: "absolute",
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: theme.fonts.bold,
     color: "white",
   },
 });
