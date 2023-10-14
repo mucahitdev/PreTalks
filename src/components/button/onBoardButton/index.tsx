@@ -1,5 +1,4 @@
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import React, { RefObject } from "react";
 import { FlatList, Pressable, StyleSheet } from "react-native";
 import Animated, {
@@ -9,6 +8,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { APP_NAV, TAB_BAR_NAV } from "@/common/constants";
 import { myColor, theme } from "@/common/theme";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -17,14 +17,16 @@ type ButtonProps = {
   flatListRef: RefObject<FlatList>;
   flatListIndex: SharedValue<number>;
   dataLength: number;
+  navigation: any;
 };
 
 export function OnBoardButton({
   dataLength,
   flatListIndex,
   flatListRef,
+  navigation,
 }: ButtonProps) {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const buttonAnimationStyle = useAnimatedStyle(() => {
     const isLastScreen = flatListIndex.value === dataLength - 1;
     return {
@@ -58,7 +60,7 @@ export function OnBoardButton({
     if (!isLastScreen) {
       flatListRef.current?.scrollToIndex({ index: flatListIndex.value + 1 });
     } else {
-      navigation.navigate("HomeScreen" as never);
+      navigation.navigate(APP_NAV.TAB_STACK, { screen: TAB_BAR_NAV.HOME });
     }
   };
 

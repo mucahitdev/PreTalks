@@ -112,7 +112,11 @@ const RenderItem = ({
   );
 };
 
-const OnBoardingScreen: React.FC = () => {
+interface OnBoardingScreenProps {
+  navigation: any;
+}
+
+const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation }) => {
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const flatListRef = useAnimatedRef<FlatList>();
 
@@ -158,6 +162,7 @@ const OnBoardingScreen: React.FC = () => {
           flatListRef={flatListRef}
           flatListIndex={flatListIndex}
           dataLength={data.length}
+          navigation={navigation}
         />
       </View>
     </View>

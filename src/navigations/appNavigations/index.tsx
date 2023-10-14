@@ -2,9 +2,10 @@
 import { NavigationProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import { APP_NAV_TYPE } from "@/common/constants";
 import { appRoutes } from "@/routes/appRoutes";
 
-export type ScreenNames = ["HomeScreen", "OnBoardingScreen"]; // type these manually
+export type ScreenNames = APP_NAV_TYPE; // type these manually
 export type RootStackParamList = Record<ScreenNames[number], undefined>;
 export type StackNavigation = NavigationProp<RootStackParamList>;
 const Stack = createNativeStackNavigator<RootStackParamList>();

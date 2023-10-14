@@ -1,8 +1,11 @@
 export const APP_NAV = {
   ONBOARDING: "OnBoardingScreen",
-  MAIN: "HomeScreen",
+  TAB_STACK: "TabStack",
 };
 
-// export const ONBOARDING_NAV = {
-//   ONBOARDING: "OnboardingScreen",
-// };
+export const TAB_BAR_NAV = {
+  HOME: "HomeScreen",
+};
+
+export type APP_NAV_TYPE = keyof typeof APP_NAV;
+export type TAB_BAR_NAV_TYPE = keyof typeof TAB_BAR_NAV;
