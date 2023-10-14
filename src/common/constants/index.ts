@@ -5,6 +5,7 @@ export const APP_NAV = {
 
 export const TAB_BAR_NAV = {
   HOME: "HomeScreen",
+  SETTINGS: "SettingsScreen",
 };
 
 export type APP_NAV_TYPE = keyof typeof APP_NAV;
