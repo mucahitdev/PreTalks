@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationProp } from "@react-navigation/native";
+import { FC } from "react";
 
 import { TAB_BAR_NAV, type TAB_BAR_NAV_TYPE } from "@/common/constants";
 import { theme } from "@/common/theme";
@@ -13,7 +14,7 @@ export type StackNavigation = NavigationProp<RootStackParamList>;
 // ROOT COMPONENT
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
-export default function BottomTabNavigation() {
+const BottomTabNavigation: FC = () => {
   return (
     <Tab.Navigator
       initialRouteName={TAB_BAR_NAV.HOME}
@@ -58,4 +59,6 @@ export default function BottomTabNavigation() {
       })}
     </Tab.Navigator>
   );
-}
+};
+
+export default BottomTabNavigation;

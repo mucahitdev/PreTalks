@@ -3,6 +3,7 @@
 
 import { APP_NAV } from "@/common/constants";
 import BottomTabNavigations from "@/navigations/bottomTabNavigations";
+import GameNavigations from "@/navigations/gameNavigations";
 import OnBoardingScreen from "@/screens/onBoarding";
 
 export const appRoutes = [
@@ -13,5 +14,9 @@ export const appRoutes = [
   {
     name: APP_NAV.TAB_STACK,
     component: BottomTabNavigations,
+  },
+  {
+    name: APP_NAV.GAME_STACK,
+    component: GameNavigations,
   },
 ];
