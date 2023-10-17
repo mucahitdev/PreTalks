@@ -1,6 +1,8 @@
 // Here is a navigation stack for the app
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { NavigationProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useEffect, useState } from "react";
 
 import { APP_NAV_TYPE } from "@/common/constants";
 import { appRoutes } from "@/routes/appRoutes";
@@ -11,12 +13,28 @@ export type StackNavigation = NavigationProp<RootStackParamList>;
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigations() {
-  //   const isOnboardDone = useAppSelector((state) => state.user.isOnboardDone);
-  //   if (isOnboardDone) {
-  //     appRoutes.shift();
-  //   }
+  const { getItem } = useAsyncStorage("@isOnboardDone");
+  const [isOnboardDone, setIsOnboardDone] = useState<string | null>(null);
+
+  useEffect(() => {
+    const checkOnboard = async () => {
+      const isDone = await getItem();
+      if (isDone === "true") {
+        setIsOnboardDone("TabStack");
+      } else {
+        setIsOnboardDone("OnBoarding");
+      }
+    };
+    checkOnboard();
+  }, []);
+
+  if (isOnboardDone === null) {
+    return null;
+  }
+
   return (
     <Stack.Navigator
+      initialRouteName={isOnboardDone}
       screenOptions={{
         headerBackTitle: "Back",
         headerShown: false,

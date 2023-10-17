@@ -1,4 +1,5 @@
 import { Feather } from "@expo/vector-icons";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import React, { RefObject } from "react";
 import { FlatList, Pressable, StyleSheet } from "react-native";
 import Animated, {
@@ -26,7 +27,7 @@ export function OnBoardButton({
   flatListRef,
   navigation,
 }: ButtonProps) {
-  // const navigation = useNavigation();
+  const { setItem } = useAsyncStorage("@isOnboardDone");
   const buttonAnimationStyle = useAnimatedStyle(() => {
     const isLastScreen = flatListIndex.value === dataLength - 1;
     return {
@@ -55,11 +56,12 @@ export function OnBoardButton({
     };
   });
 
-  const handleNextScreen = () => {
+  const handleNextScreen = async () => {
     const isLastScreen = flatListIndex.value === dataLength - 1;
     if (!isLastScreen) {
       flatListRef.current?.scrollToIndex({ index: flatListIndex.value + 1 });
     } else {
+      await setItem("true");
       navigation.navigate(APP_NAV.TAB_STACK, { screen: TAB_BAR_NAV.HOME });
     }
   };

@@ -1752,6 +1752,13 @@
     picocolors "^1.0.0"
     tslib "^2.6.0"
 
+"@react-native-async-storage/async-storage@^1.19.3":
+  version "1.19.3"
+  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.19.3.tgz#ad5fe3ed0a82d4624aa4500321c1e09c02daeb46"
+  integrity sha512-CwGfoHCWdPOTPS+2fW6YRE1fFBpT9++ahLEroX5hkgwyoQ+TkmjOaUxixdEIoVua9Pz5EF2pGOIJzqOTMWfBlA==
+  dependencies:
+    merge-options "^3.0.4"
+
 "@react-native-community/cli-clean@11.3.7":
   version "11.3.7"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-clean/-/cli-clean-11.3.7.tgz#cb4c2f225f78593412c2d191b55b8570f409a48f"
@@ -4906,6 +4913,11 @@ is-path-inside@^3.0.2, is-path-inside@^3.0.3:
   resolved "https://registry.yarnpkg.com/is-path-inside/-/is-path-inside-3.0.3.tgz#d231362e53a07ff2b0e0ea7fed049161ffd16283"
   integrity sha512-Fd4gABb+ycGAmKou8eMftCupSir5lRxqf4aD/vd0cD2qc4HL07OjCeuHMr8Ro4CoMaeCKDB0/ECBOVWjTwUvPQ==
 
+is-plain-obj@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-2.1.0.tgz#45e42e37fccf1f40da8e5f76ee21515840c09287"
+  integrity sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==
+
 is-plain-object@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-2.0.4.tgz#2c163b3fafb1b606d9d17928f05c2a1c38e07677"
@@ -5543,6 +5555,13 @@ memory-cache@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/memory-cache/-/memory-cache-0.2.0.tgz#7890b01d52c00c8ebc9d533e1f8eb17e3034871a"
   integrity sha512-OcjA+jzjOYzKmKS6IQVALHLVz+rNTMPoJvCztFaZxwG14wtAW7VRZjwTQu06vKCYOxh4jVnik7ya0SXTB0W+xA==
+
+merge-options@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/merge-options/-/merge-options-3.0.4.tgz#84709c2aa2a4b24c1981f66c179fe5565cc6dbb7"
+  integrity sha512-2Sug1+knBjkaMsMgf1ctR1Ujx+Ayku4EdJN4Z+C2+JzoeF7A3OZ9KM2GY0CpQS51NR61LTurMJrRKPhSs3ZRTQ==
+  dependencies:
+    is-plain-obj "^2.1.0"
 
 merge-stream@^2.0.0:
   version "2.0.0"
@@ -6749,10 +6768,10 @@ react-native-reset-css@^1.0.3:
   resolved "https://registry.yarnpkg.com/react-native-reset-css/-/react-native-reset-css-1.0.3.tgz#b1524c03fab0e7676341d3f7f8a262a2e42ea9f2"
   integrity sha512-VZDP0R28To9cdcV7PKEBcdVIV0ft14Yh0INqU3bKNRbg6nepus2xYOnRFS1JUVcE6cGUeL5T4FrBHbXvu/oaVg==
 
-react-native-safe-area-context@^4.7.2:
-  version "4.7.2"
-  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.7.2.tgz#1673aa99b6a9235e7faaf5a248e69795d6e54e07"
-  integrity sha512-5fy/hRNJ7bI/U2SliOeKf0D80J4lXPc1NsRiNS7Xaz8YTnqlzWib1ViItkwKPfufe54YKzVBMmM32RpdzvO2gg==
+react-native-safe-area-context@4.6.3:
+  version "4.6.3"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.6.3.tgz#f06cfea05b1c4b018aa9758667a109f619c62b55"
+  integrity sha512-3CeZM9HFXkuqiU9HqhOQp1yxhXw6q99axPWrT+VJkITd67gnPSU03+U27Xk2/cr9XrLUnakM07kj7H0hdPnFiQ==
 
 react-native-safe-modules@^1.0.3:
   version "1.0.3"
@@ -6769,10 +6788,10 @@ react-native-screens@~3.22.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-react-native-svg@^13.14.0:
-  version "13.14.0"
-  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-13.14.0.tgz#879930cfe10e877e51ebb77dfcc2cd65fc6b0d21"
-  integrity sha512-27ZnxUkHgWICimhuj6MuqBkISN53lVvgWJB7pIypjXysAyM+nqgQBPh4vXg+7MbqLBoYvR4PiBgKfwwGAqVxHg==
+react-native-svg@13.9.0:
+  version "13.9.0"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-13.9.0.tgz#8df8a690dd00362601f074dec5d3a86dd0f99c7f"
+  integrity sha512-Ey18POH0dA0ob/QiwCBVrxIiwflhYuw0P0hBlOHeY4J5cdbs8ngdKHeWC/Kt9+ryP6fNoEQ1PUgPYw2Bs/rp5Q==
   dependencies:
     css-select "^5.1.0"
     css-tree "^1.1.3"
