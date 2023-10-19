@@ -10,8 +10,5 @@ export const gameRoutes = [
   {
     name: GAME_NAV.GAME_AREA,
     component: GameAreaScreen,
-    options: {
-      swipeEnabled: false,
-    },
   },
 ];

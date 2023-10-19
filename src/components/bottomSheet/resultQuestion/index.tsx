@@ -1,33 +1,53 @@
 import BottomSheet from "@gorhom/bottom-sheet";
-import React, { useCallback, useMemo, forwardRef } from "react";
+import React, { useMemo, forwardRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import { theme } from "@/common/theme";
+import BigButton from "@/components/button";
 
-interface ResultQuestionBottomSheetProps extends BottomSheet {}
+interface ResultQuestionBottomSheetProps {
+  resultBS: "TIME_UP" | "CORRECT" | "WRONG" | null;
+  goToNextQuestion: () => void;
+  isLastQuestion: boolean;
+}
 
-const ResultQuestionBottomSheet = forwardRef<ResultQuestionBottomSheetProps>(
-  (props, ref) => {
-    // props
-    const { ...rest } = props;
+const ResultQuestionBottomSheet = forwardRef<
+  BottomSheet,
+  ResultQuestionBottomSheetProps
+>((props, ref) => {
+  // props
+  const { resultBS, isLastQuestion, goToNextQuestion, ...rest } = props;
 
-    // variables
-    const snapPoints = useMemo(() => ["50%"], []);
+  // variables
+  const snapPoints = useMemo(() => ["50%"], []);
 
-    return (
-      <BottomSheet index={-1} ref={ref} snapPoints={snapPoints} {...rest}>
-        <View style={styles.contentContainer}>
-          <Text>Awesome 🎉</Text>
-        </View>
-      </BottomSheet>
-    );
-  },
-);
+  return (
+    <BottomSheet
+      enableContentPanningGesture
+      index={-1}
+      ref={ref}
+      snapPoints={snapPoints}
+      {...rest}
+    >
+      <View style={styles.contentContainer}>
+        <Text>{resultBS}</Text>
+        <BigButton
+          onPress={() => {
+            goToNextQuestion();
+          }}
+          style={{ height: 56, width: "100%" }}
+        >
+          {isLastQuestion ? "Ana sayfa" : "Yeni soru yolla"}
+        </BigButton>
+      </View>
+    </BottomSheet>
+  );
+});
 
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     alignItems: "center",
+    paddingHorizontal: 20,
   },
 });
 

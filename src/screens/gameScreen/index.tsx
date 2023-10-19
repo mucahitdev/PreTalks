@@ -1,12 +1,12 @@
-import * as NavigationBar from "expo-navigation-bar";
 import LottieView from "lottie-react-native";
-import { FC, useEffect } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { FC } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { GAME_NAV } from "@/common/constants";
 import { theme } from "@/common/theme";
 import { BigButton } from "@/components";
+import { useSetAndroidNavBarColor } from "@/hooks";
 
 interface GameScreenProps {
   navigation?: any;
@@ -16,11 +16,7 @@ interface GameScreenProps {
 const GameScreen: FC<GameScreenProps> = ({ route, navigation }) => {
   const { data } = route.params;
 
-  useEffect(() => {
-    if (Platform.OS === "android") {
-      NavigationBar.setBackgroundColorAsync(theme.colors.primary);
-    }
-  }, []);
+  useSetAndroidNavBarColor(theme.colors.primary);
 
   return (
     <SafeAreaView edges={["top"]} style={styles.container}>
@@ -38,7 +34,7 @@ const GameScreen: FC<GameScreenProps> = ({ route, navigation }) => {
       </View>
       <BigButton
         style={styles.button}
-        onPress={() => navigation.push(GAME_NAV.GAME_AREA)}
+        onPress={() => navigation.navigate(GAME_NAV.GAME_AREA)}
       >
         Oyunu Başlat
       </BigButton>

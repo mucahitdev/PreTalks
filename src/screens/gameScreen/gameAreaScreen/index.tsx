@@ -1,114 +1,104 @@
 import BottomSheet from "@gorhom/bottom-sheet";
-import * as NavigationBar from "expo-navigation-bar";
-import { FC, useEffect, useRef, useState } from "react";
-import { Alert, Platform, StyleSheet, Text, View } from "react-native";
+import { FC, useRef, useState, useCallback } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import CircularProgress from "react-native-circular-progress-indicator";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import QuestionArea from "./questionArea";
+
+import { APP_NAV, TAB_BAR_NAV } from "@/common/constants";
+import MockWords from "@/common/data/questions/index.json";
 import { theme } from "@/common/theme";
-import { BigButton } from "@/components";
 import ResultQuestionBottomSheet from "@/components/bottomSheet/resultQuestion";
+import { generateQuestions } from "@/helpers";
+import { useBackEnabled, useSetAndroidNavBarColor } from "@/hooks";
 
 interface GameAreaScreenProps {
   navigation?: any;
   route?: any;
 }
 
+type ResultBSTypes = "TIME_UP" | "CORRECT" | "WRONG" | null;
+
 const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
-  useEffect(() => {
-    if (Platform.OS === "android") {
-      NavigationBar.setBackgroundColorAsync(theme.colors.primary);
-    }
-  }, []);
+  const [resultBS, setResultBS] = useState<ResultBSTypes>(null);
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const hasUnsavedChanges = true;
+  const questions = generateQuestions(MockWords);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
+  const [isLastQuestion, setIsLastQuestion] = useState<boolean>(false);
 
-  const openBottomSheet = () => {
+  // Hooks
+  useBackEnabled(navigation, isLastQuestion);
+  useSetAndroidNavBarColor(theme.colors.primary);
+
+  // Functions
+
+  const openBottomSheet = useCallback(() => {
     bottomSheetRef.current?.expand();
-  };
+  }, []);
 
-  const closeBottomSheet = () => {
+  const closeBottomSheet = useCallback(() => {
     bottomSheetRef.current?.close();
+  }, []);
+
+  const onAnimationComplete = () => {
+    setResultBS("TIME_UP");
+    openBottomSheet();
   };
 
-  useEffect(
-    () =>
-      navigation.addListener("beforeRemove", (e: any) => {
-        if (!hasUnsavedChanges) {
-          // If we don't have unsaved changes, then we don't need to do anything
-          return;
-        }
-
-        // Prevent default behavior of leaving the screen
-        e.preventDefault();
-
-        // Prompt the user before leaving the screen
-        Alert.alert("Geri dön", "Oyunu bitirmek istediğinize emin misiniz?", [
-          { text: "Kal", style: "cancel", onPress: () => {} },
-          {
-            text: "Evet",
-            style: "destructive",
-
-            onPress: () => navigation.dispatch(e.data.action),
-          },
-        ]);
-      }),
-    [navigation, hasUnsavedChanges],
-  );
-
-  const question = {
-    question: "Big kelimesinin anlamı nedir?",
-    answers: [
-      {
-        answer: "Büyük",
-        isCorrect: true,
-      },
-      {
-        answer: "Küçük",
-        isCorrect: false,
-      },
-      {
-        answer: "Orta",
-        isCorrect: false,
-      },
-      {
-        answer: "Kısa",
-        isCorrect: false,
-      },
-    ],
+  const handleAnswerSelection = (answer: boolean) => {
+    if (answer) {
+      setResultBS("CORRECT");
+      setScore((prevScore) => prevScore + 10);
+    } else {
+      setResultBS("WRONG");
+    }
+    openBottomSheet();
   };
+
+  const goToNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      closeBottomSheet();
+      if (currentQuestionIndex === questions.length - 2) {
+        setIsLastQuestion(true);
+      }
+    } else {
+      navigation.navigate(APP_NAV.TAB_STACK, {
+        screen: TAB_BAR_NAV.HOME,
+      });
+    }
+  };
+
+  const currentQuestion = questions[currentQuestionIndex];
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.gameInfoContainer}>
         <Text>Kelime Avı</Text>
+        <Text>Puan: {score}</Text>
         <CircularProgress
           value={0}
           duration={15000}
           maxValue={15}
           initialValue={15}
           radius={28}
-          onAnimationComplete={() => console.log("onAnimationComplete")}
+          onAnimationComplete={onAnimationComplete}
         />
       </View>
-      <View style={styles.questionContainer}>
-        <Text>Big</Text>
-        <Text>Kelimesinin anlamı nedir?</Text>
-      </View>
-      {question.answers.map((item, index) => (
-        <BigButton
-          key={index}
-          labelStyle={styles.answerText}
-          style={styles.answerTextContainer}
-          onPress={() => {
-            openBottomSheet();
-            console.log(item.answer);
-          }}
-        >
-          {item.answer}
-        </BigButton>
-      ))}
-      <ResultQuestionBottomSheet ref={bottomSheetRef} />
+
+      <QuestionArea
+        currentQuestion={currentQuestion}
+        handleAnswerSelection={handleAnswerSelection}
+      />
+
+      <ResultQuestionBottomSheet
+        resultBS={resultBS}
+        ref={bottomSheetRef}
+        isLastQuestion={isLastQuestion}
+        goToNextQuestion={goToNextQuestion}
+      />
     </SafeAreaView>
   );
 };
@@ -118,31 +108,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.primary,
     alignItems: "center",
-    paddingHorizontal: 16,
+    padding: 16,
   },
   gameInfoContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
     height: 80,
-  },
-  questionContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "red",
-    width: "100%",
-    borderRadius: 16,
-  },
-  answerTextContainer: {
-    height: 56,
-    width: "100%",
-    marginTop: 16,
-    backgroundColor: "pink",
-  },
-  answerText: {
-    fontSize: 20,
-    color: "#FF4B91",
   },
 });
 
