@@ -37,6 +37,4 @@ jobs:
 
 
       - name: 🚀 Publish app
-        run: |
-        latest_commit_message=$(git log --oneline -n 1)
-        echo "eas update --branch dev --message $latest_commit_message --non-interactive"
+        run: eas update --branch dev --non-interactive
