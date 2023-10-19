@@ -1,4 +1,8 @@
 import BottomSheet from "@gorhom/bottom-sheet";
+import clock from "assets/images/clock.json";
+import correct from "assets/images/correct.json";
+import wrong from "assets/images/wrong.json";
+import LottieView from "lottie-react-native";
 import React, { useMemo, forwardRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
@@ -16,6 +20,15 @@ const ResultQuestionBottomSheet = forwardRef<
 >((props, ref) => {
   // props
   const { resultBS, isLastQuestion, goToNextQuestion, ...rest } = props;
+  const animation =
+    resultBS === "TIME_UP" ? clock : resultBS === "CORRECT" ? correct : wrong;
+
+  const description =
+    resultBS === "TIME_UP"
+      ? "Süre doldu!"
+      : resultBS === "CORRECT"
+      ? "Doğru cevap!"
+      : "Yanlış cevap!";
 
   // variables
   const snapPoints = useMemo(() => ["50%"], []);
@@ -29,7 +42,13 @@ const ResultQuestionBottomSheet = forwardRef<
       {...rest}
     >
       <View style={styles.contentContainer}>
-        <Text>{resultBS}</Text>
+        <LottieView
+          source={animation}
+          autoPlay
+          loop={false}
+          style={{ height: 100, width: 200 }}
+        />
+        <Text style={styles.description}>{description}</Text>
         <BigButton
           onPress={() => {
             goToNextQuestion();
@@ -48,6 +67,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingHorizontal: 20,
+  },
+  description: {
+    fontSize: 20,
+    marginVertical: 20,
+    textAlign: "center",
   },
 });
 
