@@ -1,6 +1,6 @@
 // Here is a navigation stack for the app
 import { NavigationProp } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import { GAME_NAV_TYPE } from "@/common/constants";
 import { gameRoutes } from "@/routes/gameRoutes";
@@ -8,7 +8,7 @@ import { gameRoutes } from "@/routes/gameRoutes";
 export type ScreenNames = GAME_NAV_TYPE; // type these manually
 export type RootStackParamList = Record<ScreenNames[number], undefined>;
 export type StackNavigation = NavigationProp<RootStackParamList>;
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function GameNavigations() {
   return (

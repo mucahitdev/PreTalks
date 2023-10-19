@@ -35,7 +35,11 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
+      - name: Get last commit message
+        id: commit
+        run: | 
+        echo "::set-output name=message::$(git log -1 --pretty=format:"%s")"
 
 
       - name: 🚀 Publish app
-        run: eas update --branch dev --message dev --non-interactive
+        run: eas update --branch dev --message "${{ steps.commit.outputs.message }}" --non-interactive

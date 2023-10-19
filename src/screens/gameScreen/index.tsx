@@ -4,6 +4,7 @@ import { FC, useEffect } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { GAME_NAV } from "@/common/constants";
 import { theme } from "@/common/theme";
 import { BigButton } from "@/components";
 
@@ -12,7 +13,7 @@ interface GameScreenProps {
   route?: any;
 }
 
-const GameScreen: FC<GameScreenProps> = ({ route }) => {
+const GameScreen: FC<GameScreenProps> = ({ route, navigation }) => {
   const { data } = route.params;
 
   useEffect(() => {
@@ -37,9 +38,7 @@ const GameScreen: FC<GameScreenProps> = ({ route }) => {
       </View>
       <BigButton
         style={styles.button}
-        onPress={() => {
-          console.log("Go back");
-        }}
+        onPress={() => navigation.push(GAME_NAV.GAME_AREA)}
       >
         Oyunu Başlat
       </BigButton>

@@ -11,6 +11,7 @@ export const TAB_BAR_NAV = {
 
 export const GAME_NAV = {
   GAME: "GameScreen",
+  GAME_AREA: "GameAreaScreen",
   GAME_RESULT: "GameResultScreen",
 };
 
