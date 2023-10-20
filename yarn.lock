@@ -4064,6 +4064,11 @@ expo-navigation-bar@~2.3.0:
     "@react-native/normalize-color" "^2.0.0"
     debug "^4.3.2"
 
+expo-speech@~11.3.0:
+  version "11.3.0"
+  resolved "https://registry.yarnpkg.com/expo-speech/-/expo-speech-11.3.0.tgz#374c6cb4df90f226652a8958729783f7a9a60127"
+  integrity sha512-pJLh8pLuMJRZrg7hzS4JtMwvjbgfCkmoERL45A8vkq8VQFo+2GPT72BMuC9xy1sys7CGZJ8M5yMYTE5saUr1rg==
+
 expo-status-bar@~1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.6.0.tgz#e79ffdb9a84d2e0ec9a0dc7392d9ab364fefa9cf"
@@ -6851,10 +6856,10 @@ react-native-vector-icons@^10.0.0:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native@0.72.5:
-  version "0.72.5"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.72.5.tgz#2c343fa6f3ead362cf07376634a33a4078864357"
-  integrity sha512-oIewslu5DBwOmo7x5rdzZlZXCqDIna0R4dUwVpfmVteORYLr4yaZo5wQnMeR+H7x54GaMhmgeqp0ZpULtulJFg==
+react-native@0.72.6:
+  version "0.72.6"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.72.6.tgz#9f8d090694907e2f83af22e115cc0e4a3d5fa626"
+  integrity sha512-RafPY2gM7mcrFySS8TL8x+TIO3q7oAlHpzEmC7Im6pmXni6n1AuufGaVh0Narbr1daxstw7yW7T9BKW5dpVc2A==
   dependencies:
     "@jest/create-cache-key-function" "^29.2.1"
     "@react-native-community/cli" "11.3.7"

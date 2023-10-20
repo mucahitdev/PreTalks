@@ -1,7 +1,9 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import { FC, useRef, useState, useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import CircularProgress from "react-native-circular-progress-indicator";
+import CircularProgress, {
+  ProgressRef,
+} from "react-native-circular-progress-indicator";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import QuestionArea from "./questionArea";
@@ -23,6 +25,7 @@ type ResultBSTypes = "TIME_UP" | "CORRECT" | "WRONG" | null;
 const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
   const [resultBS, setResultBS] = useState<ResultBSTypes>(null);
   const bottomSheetRef = useRef<BottomSheet>(null);
+  const circleRef = useRef<ProgressRef>(null);
   const questions = generateQuestions(MockWords);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
@@ -47,12 +50,22 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
     openBottomSheet();
   };
 
+  const resetAnimation = () => {
+    circleRef.current?.reAnimate();
+  };
+
+  const pauseAnimation = () => {
+    circleRef.current?.pause();
+  };
+
   const handleAnswerSelection = (answer: boolean) => {
     if (answer) {
       setResultBS("CORRECT");
       setScore((prevScore) => prevScore + 10);
+      pauseAnimation();
     } else {
       setResultBS("WRONG");
+      pauseAnimation();
     }
     openBottomSheet();
   };
@@ -61,6 +74,7 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       closeBottomSheet();
+      resetAnimation();
       if (currentQuestionIndex === questions.length - 2) {
         setIsLastQuestion(true);
       }
@@ -79,11 +93,13 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
         <Text>Kelime Avı</Text>
         <Text>Puan: {score}</Text>
         <CircularProgress
+          ref={circleRef}
           value={0}
           duration={15000}
           maxValue={15}
           initialValue={15}
           radius={28}
+          startInPausedState={false}
           onAnimationComplete={onAnimationComplete}
         />
       </View>

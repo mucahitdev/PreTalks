@@ -1,7 +1,10 @@
-import { FC } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { FC, useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import { theme } from "@/common/theme";
 import { BigButton } from "@/components";
+import { useSpeech } from "@/hooks";
 
 interface QuestionAreaProps {
   currentQuestion: any;
@@ -12,6 +15,9 @@ const QuestionArea: FC<QuestionAreaProps> = ({
   currentQuestion,
   handleAnswerSelection,
 }) => {
+  const [isMute, setIsMute] = useState(false);
+  useSpeech({ text: currentQuestion.word, enable: !isMute });
+
   return (
     <>
       <View style={styles.questionContainer}>
@@ -19,13 +25,31 @@ const QuestionArea: FC<QuestionAreaProps> = ({
         <Text style={styles.questionDescription}>
           kelimesinin anlamı nedir?
         </Text>
+        <TouchableOpacity
+          style={styles.mute}
+          onPress={() => setIsMute(!isMute)}
+        >
+          {isMute ? (
+            <Ionicons
+              name="ios-volume-off"
+              size={30}
+              color={theme.colors.primary}
+            />
+          ) : (
+            <Ionicons
+              name="ios-volume-medium"
+              size={30}
+              color={theme.colors.primary}
+            />
+          )}
+        </TouchableOpacity>
       </View>
       {currentQuestion.answers.map((item: any, index: number) => (
         <BigButton
           key={index}
           labelStyle={styles.answerText}
           style={styles.answerTextContainer}
-          onPress={() => handleAnswerSelection(item.isCorrect)} // item.isCorrect doğru ise true, yanlış ise false dönecektir.
+          onPress={() => handleAnswerSelection(item.isCorrect)}
         >
           {item.answer}
         </BigButton>
@@ -37,14 +61,14 @@ const QuestionArea: FC<QuestionAreaProps> = ({
 const styles = StyleSheet.create({
   questionContainer: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#D0D4CA",
+    justifyContent: "center",
     width: "100%",
     borderRadius: 16,
   },
   questionWord: {
-    fontSize: 48,
+    fontSize: 36,
     color: "#FF4B91",
   },
   questionDescription: {
@@ -60,6 +84,13 @@ const styles = StyleSheet.create({
   answerText: {
     fontSize: 20,
     color: "#FF4B91",
+  },
+  mute: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    margin: 16,
+    padding: 8,
   },
 });
 
