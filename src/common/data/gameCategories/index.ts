@@ -6,6 +6,7 @@ export const gameCategories = [
     name: "Kelime Avı",
     categoryID: 1,
     animation: WordHunt,
+    enabled: true,
     description:
       "Bu oyunda verilen kelimelerin anlamlarını bulmaya çalışacaksınız.",
   },
@@ -14,6 +15,7 @@ export const gameCategories = [
     name: "Zamana Karşı",
     categoryID: 2,
     animation: WordHunt,
+    enabled: false,
     description:
       "Bu oyunda verilen kelimelirin anlamlarını zaman tükenmeden bulmaya çalışın. Her doğru cevap için +10sn kazanırsınız.",
   },

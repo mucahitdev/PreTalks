@@ -20,6 +20,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
         renderItem={({ item }) => (
           <Pressable
             style={styles.listItem}
+            disabled={!item.enabled}
             onPress={() =>
               navigation.navigate(APP_NAV.GAME_STACK, {
                 screen: GAME_NAV.GAME,
@@ -28,6 +29,11 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
             }
           >
             <Text style={{ color: "#FF4B91" }}>{item.name}</Text>
+            {!item.enabled && (
+              <View style={styles.comingSoonContainer}>
+                <Text style={styles.comingSoon}>Yakında</Text>
+              </View>
+            )}
           </Pressable>
         )}
         keyExtractor={(item) => item.id.toString()}
@@ -52,6 +58,19 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     borderRadius: 8,
     backgroundColor: "pink",
+    overflow: "hidden",
+  },
+  comingSoonContainer: {
+    flex: 1,
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  comingSoon: {
+    fontSize: 20,
   },
 });
 
