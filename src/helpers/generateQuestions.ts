@@ -23,6 +23,7 @@ export default function generateQuestions(data: any) {
       word: word.word,
       correctAnswer: correctAnswer.answer,
       answers: allAnswers,
+      levelId: word.levelId,
     };
   });
 

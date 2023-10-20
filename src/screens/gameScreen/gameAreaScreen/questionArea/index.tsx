@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { theme } from "@/common/theme";
 import { BigButton } from "@/components";
+import { getLevelDescriptor } from "@/helpers";
 import { useSpeech } from "@/hooks";
 
 interface QuestionAreaProps {
@@ -16,12 +17,16 @@ const QuestionArea: FC<QuestionAreaProps> = ({
   handleAnswerSelection,
 }) => {
   const [isMute, setIsMute] = useState(false);
-  useSpeech({ text: currentQuestion.word, enable: !isMute });
+  const { word, answers, levelId } = currentQuestion;
+  const { text, color } = getLevelDescriptor(levelId);
+
+  useSpeech({ text: word, enable: !isMute });
 
   return (
     <>
       <View style={styles.questionContainer}>
-        <Text style={styles.questionWord}> {currentQuestion.word} </Text>
+        <Text style={[styles.wordLevel, { color }]}>{text}</Text>
+        <Text style={styles.questionWord}> {word} </Text>
         <Text style={styles.questionDescription}>
           kelimesinin anlamı nedir?
         </Text>
@@ -44,7 +49,7 @@ const QuestionArea: FC<QuestionAreaProps> = ({
           )}
         </TouchableOpacity>
       </View>
-      {currentQuestion.answers.map((item: any, index: number) => (
+      {answers.map((item: any, index: number) => (
         <BigButton
           key={index}
           labelStyle={styles.answerText}
@@ -91,6 +96,15 @@ const styles = StyleSheet.create({
     right: 0,
     margin: 16,
     padding: 8,
+  },
+  wordLevel: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    margin: 16,
+    padding: 8,
+    fontSize: 20,
+    color: theme.colors.primary,
   },
 });
 
