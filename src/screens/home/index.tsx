@@ -14,7 +14,6 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <SafeAreaView edges={["top"]} style={styles.container}>
       <FlatList
-        style={styles.list}
         numColumns={2}
         data={gameCategories}
         renderItem={({ item }) => (
@@ -46,8 +45,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.primary,
-  },
-  list: {
     padding: 16,
   },
   listItem: {

@@ -1,16 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
-import { View, Text } from "react-native";
 
 import { TAB_BAR_NAV } from "@/common/constants";
 import HomeScreen from "@/screens/home";
-
-const Settings = () => {
-  return (
-    <View>
-      <Text>Settings</Text>
-    </View>
-  );
-};
+import SettingsScreen from "@/screens/settingsScreen";
 
 export const bottomTabRoutes = [
   {
@@ -29,7 +21,7 @@ export const bottomTabRoutes = [
   },
   {
     name: TAB_BAR_NAV.SETTINGS,
-    component: Settings,
+    component: SettingsScreen,
     options: {
       title: "Settings",
       tabBarIcon: ({ focused, color, size }: any) => (

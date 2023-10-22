@@ -1,5 +1,4 @@
 import { Feather } from "@expo/vector-icons";
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import React, { RefObject } from "react";
 import { FlatList, Pressable, StyleSheet } from "react-native";
 import Animated, {
@@ -8,9 +7,11 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { useDispatch } from "react-redux";
 
 import { APP_NAV, TAB_BAR_NAV } from "@/common/constants";
 import { myColor, theme } from "@/common/theme";
+import { setOnboardingCompleted } from "@/store/settingsReducer";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -27,7 +28,7 @@ export function OnBoardButton({
   flatListRef,
   navigation,
 }: ButtonProps) {
-  const { setItem } = useAsyncStorage("@isOnboardDone");
+  const dispatch = useDispatch();
   const buttonAnimationStyle = useAnimatedStyle(() => {
     const isLastScreen = flatListIndex.value === dataLength - 1;
     return {
@@ -61,7 +62,7 @@ export function OnBoardButton({
     if (!isLastScreen) {
       flatListRef.current?.scrollToIndex({ index: flatListIndex.value + 1 });
     } else {
-      await setItem("true");
+      dispatch(setOnboardingCompleted());
       navigation.navigate(APP_NAV.TAB_STACK, { screen: TAB_BAR_NAV.HOME });
     }
   };
