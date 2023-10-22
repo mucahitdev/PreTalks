@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "504427546701",
+    "project_id": "pre-talks",
+    "storage_bucket": "pre-talks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504427546701:android:582541cbeb2fa3ae4af404",
+        "android_client_info": {
+          "package_name": "com.koksoft.pretalks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfXLnBr-MU2OAdfXpsBm3Qr3XO7VFUQ1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
