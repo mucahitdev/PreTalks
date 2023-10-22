@@ -3,7 +3,7 @@ import WordHunt from "assets/images/word-hunt.json";
 export const gameCategories = [
   {
     id: 1,
-    name: "Kelime Avı",
+    name: "Quiz",
     categoryID: 1,
     animation: WordHunt,
     enabled: true,
@@ -12,11 +12,11 @@ export const gameCategories = [
   },
   {
     id: 2,
-    name: "Zamana Karşı",
+    name: "Quiz Zamana Karşı",
     categoryID: 2,
     animation: WordHunt,
     enabled: false,
     description:
-      "Bu oyunda verilen kelimelirin anlamlarını zaman tükenmeden bulmaya çalışın. Her doğru cevap için +10sn kazanırsınız.",
+      "Bu oyunda verilen kelimelirin anlamlarını zaman tükenmeden bulmaya çalışın. Her doğru cevap için +5sn kazanırsınız.",
   },
 ];

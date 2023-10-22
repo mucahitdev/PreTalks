@@ -1,5 +1,5 @@
 export default function generateQuestions(data: any) {
-  const questions = data.words.map((word: any) => {
+  const questions = data.map((word: any) => {
     // Doğru cevap
     const correctAnswer = {
       answer: word.translations.tr,
@@ -7,7 +7,7 @@ export default function generateQuestions(data: any) {
     };
 
     // Yanlış cevaplar için rastgele kelimeler seç
-    const otherWords = data.words.filter((w: any) => w.word !== word.word);
+    const otherWords = data.filter((w: any) => w.word !== word.word);
     const randomWords = shuffleArray(otherWords).slice(0, 3);
 
     // Yanlış cevapları topla

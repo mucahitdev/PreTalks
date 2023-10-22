@@ -9,7 +9,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import QuestionArea from "./questionArea";
 
 import { APP_NAV, TAB_BAR_NAV } from "@/common/constants";
-import MockWords from "@/common/data/questions/index.json";
+// import MockWords from "@/common/data/questions/index.json";
+import { newWuestions } from "@/common/data/questions/newQuestions";
 import { theme } from "@/common/theme";
 import ResultQuestionBottomSheet from "@/components/bottomSheet/resultQuestion";
 import { generateQuestions } from "@/helpers";
@@ -30,7 +31,7 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
   const [resultBS, setResultBS] = useState<ResultBSTypes>(null);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const circleRef = useRef<ProgressRef>(null);
-  const questions = generateQuestions(MockWords);
+  const questions = generateQuestions(newWuestions);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
   const [isLastQuestion, setIsLastQuestion] = useState<boolean>(false);
