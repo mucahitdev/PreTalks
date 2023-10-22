@@ -1,11 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import { FC, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useSelector } from "react-redux";
 
 import { theme } from "@/common/theme";
 import { BigButton } from "@/components";
 import { getLevelDescriptor } from "@/helpers";
 import { useSpeech } from "@/hooks";
+import { selectIsWordReadingOn } from "@/store/settingsReducer";
 
 interface QuestionAreaProps {
   currentQuestion: any;
@@ -16,7 +18,9 @@ const QuestionArea: FC<QuestionAreaProps> = ({
   currentQuestion,
   handleAnswerSelection,
 }) => {
-  const [isMute, setIsMute] = useState(false);
+  const isWordReadingOn = useSelector(selectIsWordReadingOn);
+  const [isMute, setIsMute] = useState(!isWordReadingOn);
+
   const { word, answers, levelId } = currentQuestion;
   const { text, color } = getLevelDescriptor(levelId);
 

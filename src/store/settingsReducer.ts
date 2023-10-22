@@ -1,5 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
+import { RootState } from ".";
+
 export interface SettingsState {
   sections: Section[];
   isOnboardingCompleted: boolean;
@@ -72,5 +74,15 @@ export const settingsSlice = createSlice({
 });
 
 export const { toggleSetting, setOnboardingCompleted } = settingsSlice.actions;
+
+export const selectIsSoundEffectOn = (state: RootState) => {
+  return state.settings.sections[0].data[0].value;
+};
+export const selectIsWordReadingOn = (state: RootState) => {
+  return state.settings.sections[0].data[1].value;
+};
+export const selectIsReminderOn = (state: RootState) => {
+  return state.settings.sections[1].data[0].value;
+};
 
 export default settingsSlice.reducer;

@@ -13,7 +13,11 @@ import MockWords from "@/common/data/questions/index.json";
 import { theme } from "@/common/theme";
 import ResultQuestionBottomSheet from "@/components/bottomSheet/resultQuestion";
 import { generateQuestions } from "@/helpers";
-import { useBackEnabled, useSetAndroidNavBarColor } from "@/hooks";
+import {
+  useBackEnabled,
+  useSetAndroidNavBarColor,
+  useSoundPlayer,
+} from "@/hooks";
 
 interface GameAreaScreenProps {
   navigation?: any;
@@ -34,6 +38,7 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
   // Hooks
   useBackEnabled(navigation, isLastQuestion);
   useSetAndroidNavBarColor(theme.colors.primary);
+  const { playSound } = useSoundPlayer();
 
   // Functions
 
@@ -46,6 +51,7 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
   }, []);
 
   const onAnimationComplete = () => {
+    playSound("TIME_UP");
     setResultBS("TIME_UP");
     openBottomSheet();
   };
@@ -60,10 +66,12 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
 
   const handleAnswerSelection = (answer: boolean) => {
     if (answer) {
+      playSound("CORRECT");
       setResultBS("CORRECT");
       setScore((prevScore) => prevScore + 10);
       pauseAnimation();
     } else {
+      playSound("WRONG");
       setResultBS("WRONG");
       pauseAnimation();
     }
