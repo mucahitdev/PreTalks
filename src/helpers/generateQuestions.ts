@@ -1,4 +1,6 @@
 export default function generateQuestions(data: any) {
+  // Random 10 kelime seç
+  data = shuffleArray(data).slice(0, 10);
   const questions = data.map((word: any) => {
     // Doğru cevap
     const correctAnswer = {

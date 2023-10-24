@@ -1,5 +1,5 @@
 import BottomSheet from "@gorhom/bottom-sheet";
-import { FC, useRef, useState, useCallback } from "react";
+import { FC, useRef, useState, useCallback, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import CircularProgress, {
   ProgressRef,
@@ -28,10 +28,10 @@ interface GameAreaScreenProps {
 type ResultBSTypes = "TIME_UP" | "CORRECT" | "WRONG" | null;
 
 const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
+  const [questions, setQuestions] = useState<any[]>([]);
   const [resultBS, setResultBS] = useState<ResultBSTypes>(null);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const circleRef = useRef<ProgressRef>(null);
-  const questions = generateQuestions(newQuestions);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
   const [isLastQuestion, setIsLastQuestion] = useState<boolean>(false);
@@ -40,6 +40,13 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
   useBackEnabled(navigation, isLastQuestion);
   useSetAndroidNavBarColor(theme.colors.primary);
   const { playSound } = useSoundPlayer();
+
+  useEffect(() => {
+    if (questions.length === 0) {
+      const _newQuestions = generateQuestions(newQuestions);
+      setQuestions(_newQuestions);
+    }
+  }, []);
 
   // Functions
 
@@ -50,6 +57,10 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
   const closeBottomSheet = useCallback(() => {
     bottomSheetRef.current?.close();
   }, []);
+
+  if (questions.length === 0) {
+    return null;
+  }
 
   const onAnimationComplete = () => {
     playSound("TIME_UP");
