@@ -1,4 +1,4 @@
-export const newWuestions = [
+export const newQuestions = [
   {
     id: 1,
     word: "a, an",
