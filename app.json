@@ -50,6 +50,10 @@
           }
         }
       ]
-    ]
+    ],
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/1ee2d6b3-6c96-405b-9761-b403914e663a"
+    }
   }
 }

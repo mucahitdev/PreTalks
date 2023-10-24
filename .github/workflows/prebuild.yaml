@@ -1,10 +1,10 @@
-name: Dev - Publish to Expo
+name: Prebuild - Publish to Expo 
 
 
 on:
   push:
     branches:
-      - dev
+      - prebuild
 
 jobs:
   publish:
