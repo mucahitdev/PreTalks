@@ -1,4 +1,4 @@
-name: Publish to Expo
+name: Dev - Publish to Expo
 
 
 on:
@@ -36,6 +36,5 @@ jobs:
         run: yarn install
 
 
-
       - name: 🚀 Publish app
-        run: eas update --branch dev --message dev --non-interactive
+        run: eas update --auto

@@ -7,8 +7,11 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { useDispatch } from "react-redux";
 
-import { myColor } from "@/common/theme";
+import { APP_NAV, TAB_BAR_NAV } from "@/common/constants";
+import { myColor, theme } from "@/common/theme";
+import { setOnboardingCompleted } from "@/store/settingsReducer";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -16,13 +19,16 @@ type ButtonProps = {
   flatListRef: RefObject<FlatList>;
   flatListIndex: SharedValue<number>;
   dataLength: number;
+  navigation: any;
 };
 
 export function OnBoardButton({
   dataLength,
   flatListIndex,
   flatListRef,
+  navigation,
 }: ButtonProps) {
+  const dispatch = useDispatch();
   const buttonAnimationStyle = useAnimatedStyle(() => {
     const isLastScreen = flatListIndex.value === dataLength - 1;
     return {
@@ -51,12 +57,13 @@ export function OnBoardButton({
     };
   });
 
-  const handleNextScreen = () => {
+  const handleNextScreen = async () => {
     const isLastScreen = flatListIndex.value === dataLength - 1;
     if (!isLastScreen) {
       flatListRef.current?.scrollToIndex({ index: flatListIndex.value + 1 });
     } else {
-      console.log("Navigate to next screen");
+      dispatch(setOnboardingCompleted());
+      navigation.navigate(APP_NAV.TAB_STACK, { screen: TAB_BAR_NAV.HOME });
     }
   };
 
@@ -91,7 +98,7 @@ const styles = StyleSheet.create({
   text: {
     position: "absolute",
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: theme.fonts.bold,
     color: "white",
   },
 });

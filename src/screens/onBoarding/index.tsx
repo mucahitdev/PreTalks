@@ -18,7 +18,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { type Data, data } from "@/common/data/onBoarding";
-import { myColor } from "@/common/theme";
+import { myColor, theme } from "@/common/theme";
 import { OnBoardButton } from "@/components/button/onBoardButton";
 import { Pagination } from "@/components/common/pagination";
 
@@ -112,7 +112,11 @@ const RenderItem = ({
   );
 };
 
-const OnBoardingScreen: React.FC = () => {
+interface OnBoardingScreenProps {
+  navigation: any;
+}
+
+const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({ navigation }) => {
   const { width: SCREEN_WIDTH } = useWindowDimensions();
   const flatListRef = useAnimatedRef<FlatList>();
 
@@ -158,6 +162,7 @@ const OnBoardingScreen: React.FC = () => {
           flatListRef={flatListRef}
           flatListIndex={flatListIndex}
           dataLength={data.length}
+          navigation={navigation}
         />
       </View>
     </View>
@@ -178,12 +183,13 @@ const styles = StyleSheet.create({
   itemTitle: {
     color: myColor.primary,
     fontSize: 22,
-    fontWeight: "bold",
+    fontFamily: theme.fonts.bold,
     textAlign: "center",
     marginBottom: 10,
   },
   itemText: {
     color: myColor.primary,
+    fontFamily: theme.fonts.medium,
     textAlign: "center",
     lineHeight: 20,
     marginHorizontal: 30,

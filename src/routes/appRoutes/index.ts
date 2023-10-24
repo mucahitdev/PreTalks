@@ -2,7 +2,8 @@
 // import HomeScreen from "screens/onBoarding/home";
 
 import { APP_NAV } from "@/common/constants";
-import HomeScreen from "@/screens/home";
+import BottomTabNavigations from "@/navigations/bottomTabNavigations";
+import GameNavigations from "@/navigations/gameNavigations";
 import OnBoardingScreen from "@/screens/onBoarding";
 
 export const appRoutes = [
@@ -11,7 +12,11 @@ export const appRoutes = [
     component: OnBoardingScreen,
   },
   {
-    name: APP_NAV.MAIN,
-    component: HomeScreen,
+    name: APP_NAV.TAB_STACK,
+    component: BottomTabNavigations,
+  },
+  {
+    name: APP_NAV.GAME_STACK,
+    component: GameNavigations,
   },
 ];

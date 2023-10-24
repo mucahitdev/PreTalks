@@ -43,6 +43,7 @@ export const theme = {
     placeholder: "rgba(0, 0, 0, 0.54)",
     backdrop: "rgba(0, 0, 0, 0.5)",
     notification: "#f50057",
+    highlightBackground: "#F0EEFC",
   },
   fonts: {
     ...DefaultTheme.fonts,
