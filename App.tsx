@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { Text } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -13,6 +14,8 @@ import Fonts from "@/common/fonts";
 import { theme } from "@/common/theme";
 import AppNavigations from "@/navigations/appNavigations";
 import { store, persistor } from "@/store";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [fontsLoaded] = useFonts(Fonts);
