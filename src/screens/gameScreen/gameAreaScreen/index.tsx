@@ -14,11 +14,7 @@ import { newQuestions } from "@/common/data/questions/newQuestions";
 import { theme } from "@/common/theme";
 import ResultQuestionBottomSheet from "@/components/bottomSheet/resultQuestion";
 import { generateQuestions } from "@/helpers";
-import {
-  useBackEnabled,
-  useSetAndroidNavBarColor,
-  useSoundPlayer,
-} from "@/hooks";
+import { useBackEnabled, useSoundPlayer } from "@/hooks";
 
 interface GameAreaScreenProps {
   navigation?: any;
@@ -38,7 +34,6 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
 
   // Hooks
   useBackEnabled(navigation, isLastQuestion);
-  useSetAndroidNavBarColor(theme.colors.primary);
   const { playSound } = useSoundPlayer();
 
   useEffect(() => {

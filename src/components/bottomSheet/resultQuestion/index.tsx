@@ -53,7 +53,7 @@ const ResultQuestionBottomSheet = forwardRef<
           onPress={() => {
             goToNextQuestion();
           }}
-          style={{ height: 56, width: "100%" }}
+          style={styles.nextButton}
         >
           {isLastQuestion ? "Ana sayfa" : "Yeni soru yolla"}
         </BigButton>
@@ -72,6 +72,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginVertical: 20,
     textAlign: "center",
+  },
+  nextButton: {
+    marginTop: "auto",
+    width: "100%",
+    marginBottom: 20,
   },
 });
 
