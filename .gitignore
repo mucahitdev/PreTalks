@@ -37,3 +37,8 @@ google-services.json
 
 # typescript
 *.tsbuildinfo
+
+# Expo
+.expo
+dist/
+web-build/
