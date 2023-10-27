@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "171843623675",
+    "project_id": "pre-talks-fire",
+    "storage_bucket": "pre-talks-fire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171843623675:android:76cb1367ff50a0d1c06e5e",
+        "android_client_info": {
+          "package_name": "com.koksoft.pretalks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyM9CVhUyQfhXuuiOKCzdF58TFcVjDJAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
