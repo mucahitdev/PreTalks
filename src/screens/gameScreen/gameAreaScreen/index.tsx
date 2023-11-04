@@ -10,7 +10,8 @@ import QuestionArea from "./questionArea";
 
 import { APP_NAV, TAB_BAR_NAV } from "@/common/constants";
 // import MockWords from "@/common/data/questions/index.json";
-import { newQuestions } from "@/common/data/questions/newQuestions";
+import words from "@/common/data/allWords";
+// import { newQuestions } from "@/common/data/questions/newQuestions";
 import { theme } from "@/common/theme";
 import ResultQuestionBottomSheet from "@/components/bottomSheet/resultQuestion";
 import { generateQuestions } from "@/helpers";
@@ -38,7 +39,7 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
 
   useEffect(() => {
     if (questions.length === 0) {
-      const _newQuestions = generateQuestions(newQuestions);
+      const _newQuestions = generateQuestions(words);
       setQuestions(_newQuestions);
     }
   }, []);
