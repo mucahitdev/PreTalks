@@ -5,6 +5,7 @@ import wrong from "assets/images/wrong.json";
 import LottieView from "lottie-react-native";
 import React, { useMemo, forwardRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import BigButton from "@/components/button";
 
@@ -32,6 +33,7 @@ const ResultQuestionBottomSheet = forwardRef<
 
   // variables
   const snapPoints = useMemo(() => ["50%"], []);
+  const insets = useSafeAreaInsets();
 
   return (
     <BottomSheet
@@ -41,7 +43,7 @@ const ResultQuestionBottomSheet = forwardRef<
       snapPoints={snapPoints}
       {...rest}
     >
-      <View style={styles.contentContainer}>
+      <View style={[styles.contentContainer, { paddingBottom: insets.bottom }]}>
         <LottieView
           source={animation}
           autoPlay

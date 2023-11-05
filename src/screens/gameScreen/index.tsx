@@ -16,7 +16,7 @@ const GameScreen: FC<GameScreenProps> = ({ route, navigation }) => {
   const { data } = route.params;
 
   return (
-    <SafeAreaView edges={["top"]} style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <LottieView
         autoPlay
         style={{
