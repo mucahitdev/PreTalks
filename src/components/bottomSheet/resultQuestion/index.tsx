@@ -4,7 +4,7 @@ import BottomSheet, {
 } from "@gorhom/bottom-sheet";
 import LottieView from "lottie-react-native";
 import React, { useMemo, forwardRef } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import BigButton from "@/components/button";
@@ -24,32 +24,21 @@ const ResultQuestionBottomSheet = forwardRef<
   const { resultBS, isLastQuestion, goToNextQuestion, ...rest } = props;
   const { animation, description } = getResultBS({ resultBS });
 
-  // variables
-  const initialSnapPoints = useMemo(() => ["25%", "CONTENT_HEIGHT"], []);
   const insets = useSafeAreaInsets();
 
-  const {
-    animatedHandleHeight,
-    animatedSnapPoints,
-    animatedContentHeight,
-    handleContentLayout,
-  } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
   return (
     <BottomSheet
       enableContentPanningGesture={false}
       enablePanDownToClose
       enableHandlePanningGesture={false}
       enableOverDrag={false}
+      snapPoints={["10%"]}
       index={-1}
       ref={ref}
       enableDynamicSizing
-      snapPoints={animatedSnapPoints}
-      handleHeight={animatedHandleHeight}
-      contentHeight={animatedContentHeight}
       {...rest}
     >
       <BottomSheetView
-        onLayout={handleContentLayout}
         style={[styles.contentContainer, { paddingBottom: insets.bottom }]}
       >
         <LottieView
@@ -84,7 +73,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   nextButton: {
-    marginTop: "auto",
     width: "100%",
     marginBottom: 20,
   },

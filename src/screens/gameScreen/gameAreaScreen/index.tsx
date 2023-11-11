@@ -107,18 +107,25 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.gameInfoContainer}>
-        <Text>Kelime Avı</Text>
-        <Text>Puan: {score}</Text>
-        <CircularProgress
-          ref={circleRef}
-          value={0}
-          duration={15000}
-          maxValue={15}
-          initialValue={15}
-          radius={28}
-          startInPausedState={false}
-          onAnimationComplete={onAnimationComplete}
-        />
+        <View style={styles.gameInfos}>
+          <Text style={styles.gameInfoText}>Puan: {score}</Text>
+          <Text style={styles.gameInfoText}>
+            Soru: {currentQuestionIndex + 1}
+          </Text>
+        </View>
+        <Text style={styles.gameModeText}>Kelime Avı</Text>
+        <View style={{ flex: 1, alignItems: "flex-end" }}>
+          <CircularProgress
+            ref={circleRef}
+            value={0}
+            duration={15000}
+            maxValue={15}
+            initialValue={15}
+            radius={28}
+            startInPausedState={false}
+            onAnimationComplete={onAnimationComplete}
+          />
+        </View>
       </View>
 
       <QuestionArea
@@ -148,6 +155,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     height: 80,
+  },
+  gameModeText: {
+    color: "white",
+    fontSize: 24,
+  },
+  gameInfos: {
+    flex: 1,
+  },
+  gameInfoText: {
+    color: theme.colors.highlightBackground,
+    fontSize: 16,
   },
 });
 
