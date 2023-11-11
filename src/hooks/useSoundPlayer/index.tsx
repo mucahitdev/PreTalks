@@ -33,8 +33,15 @@ const useSoundPlayer = (): SoundPlayerHook => {
     };
   }, [sound]);
 
+  const stopSound = async () => {
+    if (!isSoundEfectOn) return;
+    if (sound) {
+      await sound.unloadAsync();
+    }
+  };
   return {
     playSound,
+    stopSound,
   };
 };
 

@@ -35,7 +35,7 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
 
   // Hooks
   useBackEnabled(navigation, isLastQuestion);
-  const { playSound } = useSoundPlayer();
+  const { playSound, stopSound } = useSoundPlayer();
 
   useEffect(() => {
     if (questions.length === 0) {
@@ -91,6 +91,7 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       closeBottomSheet();
       resetAnimation();
+      stopSound("TIME_UP");
       if (currentQuestionIndex === questions.length - 2) {
         setIsLastQuestion(true);
       }

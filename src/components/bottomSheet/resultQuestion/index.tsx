@@ -1,13 +1,14 @@
-import BottomSheet from "@gorhom/bottom-sheet";
-import clock from "assets/images/clock.json";
-import correct from "assets/images/correct.json";
-import wrong from "assets/images/wrong.json";
+import BottomSheet, {
+  BottomSheetView,
+  useBottomSheetDynamicSnapPoints,
+} from "@gorhom/bottom-sheet";
 import LottieView from "lottie-react-native";
 import React, { useMemo, forwardRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import BigButton from "@/components/button";
+import getResultBS from "@/helpers/getResultBS";
 
 interface ResultQuestionBottomSheetProps {
   resultBS: "TIME_UP" | "CORRECT" | "WRONG" | null;
@@ -21,29 +22,36 @@ const ResultQuestionBottomSheet = forwardRef<
 >((props, ref) => {
   // props
   const { resultBS, isLastQuestion, goToNextQuestion, ...rest } = props;
-  const animation =
-    resultBS === "TIME_UP" ? clock : resultBS === "CORRECT" ? correct : wrong;
-
-  const description =
-    resultBS === "TIME_UP"
-      ? "Süre doldu!"
-      : resultBS === "CORRECT"
-      ? "Doğru cevap!"
-      : "Yanlış cevap!";
+  const { animation, description } = getResultBS({ resultBS });
 
   // variables
-  const snapPoints = useMemo(() => ["50%"], []);
+  const initialSnapPoints = useMemo(() => ["25%", "CONTENT_HEIGHT"], []);
   const insets = useSafeAreaInsets();
 
+  const {
+    animatedHandleHeight,
+    animatedSnapPoints,
+    animatedContentHeight,
+    handleContentLayout,
+  } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
   return (
     <BottomSheet
-      enableContentPanningGesture
+      enableContentPanningGesture={false}
+      enablePanDownToClose
+      enableHandlePanningGesture={false}
+      enableOverDrag={false}
       index={-1}
       ref={ref}
-      snapPoints={snapPoints}
+      enableDynamicSizing
+      snapPoints={animatedSnapPoints}
+      handleHeight={animatedHandleHeight}
+      contentHeight={animatedContentHeight}
       {...rest}
     >
-      <View style={[styles.contentContainer, { paddingBottom: insets.bottom }]}>
+      <BottomSheetView
+        onLayout={handleContentLayout}
+        style={[styles.contentContainer, { paddingBottom: insets.bottom }]}
+      >
         <LottieView
           source={animation}
           autoPlay
@@ -57,16 +65,16 @@ const ResultQuestionBottomSheet = forwardRef<
           }}
           style={styles.nextButton}
         >
-          {isLastQuestion ? "Ana sayfa" : "Yeni soru yolla"}
+          {isLastQuestion ? "Sonuçları Gör" : "Yeni soru yolla"}
         </BigButton>
-      </View>
+      </BottomSheetView>
     </BottomSheet>
   );
 });
 
 const styles = StyleSheet.create({
   contentContainer: {
-    flex: 1,
+    // flex: 1,
     alignItems: "center",
     paddingHorizontal: 20,
   },
