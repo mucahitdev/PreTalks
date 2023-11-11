@@ -137,6 +137,7 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
         resultBS={resultBS}
         ref={bottomSheetRef}
         isLastQuestion={isLastQuestion}
+        currentQuestion={currentQuestion}
         goToNextQuestion={goToNextQuestion}
       />
     </SafeAreaView>
