@@ -35,5 +35,5 @@ jobs:
         run: yarn install
 
 
-      - name: 🚀 Publish app
-        run: eas submit -p android --profile production
+      - name: 🚀 Publish app Play Store
+        run: eas submit -p android --profile production --non-interactive --path build.aab

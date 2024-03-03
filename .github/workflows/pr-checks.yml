@@ -3,11 +3,9 @@ name: Checks for PRs and Commits
 on:
   push:
     branches:
-      - dev
-      - main
+      - prebuild
   pull_request:
     branches:
-      - dev
       - main
 
 jobs:
