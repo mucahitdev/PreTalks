@@ -1,4 +1,4 @@
-name: Prebuild - Publish to Expo 
+name: Update - Publish to Expo 
 
 
 on:
@@ -36,5 +36,5 @@ jobs:
         run: yarn install
 
 
-      - name: 🚀 Publish app
+      - name: 🚀 Update app
         run: eas update --auto
