@@ -45,13 +45,13 @@ const QuestionArea: FC<QuestionAreaProps> = ({
         >
           {isMute ? (
             <Ionicons
-              name="ios-volume-off"
+              name="volume-mute"
               size={30}
               color={theme.colors.primary}
             />
           ) : (
             <Ionicons
-              name="ios-volume-medium"
+              name="volume-medium-sharp"
               size={30}
               color={theme.colors.primary}
             />
