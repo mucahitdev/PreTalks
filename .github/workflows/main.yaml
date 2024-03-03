@@ -1,10 +1,9 @@
-name: Dev - Publish to Expo
-
+name: Main - Publish to Google Play Store
 
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   publish:
@@ -37,4 +36,4 @@ jobs:
 
 
       - name: 🚀 Publish app
-        run: eas update --auto
+        run: eas submit -p android --profile production
