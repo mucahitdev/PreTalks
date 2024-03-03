@@ -1,7 +1,7 @@
 #!/bin/bash
 # outputIos=$(eas build:version:get -p ios)
-# outputAndroid=$(eas build:version:get -p android)
-currentIosVersion=${outputIos#*buildNumber - }
+outputAndroid=$(eas build:version:get -p android)
+# currentIosVersion=${outputIos#*buildNumber - }
 currentAndroidVersion=${outputAndroid#*versionCode - }
 
 # PRETALKS_IOS_BUILD_NUMBER=$((currentIosVersion+1))
