@@ -12,28 +12,36 @@ jobs:
       - name: 🏗 Setup repo
         uses: actions/checkout@v2
 
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
 
-
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v2
+      - name: 🔧 Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version-file: .nvmrc
           cache: yarn
 
-
-
-      - name: Expo GitHub Action
-        uses: expo/expo-github-action@8.0.0
+      - name: 🔨 Setup EAS
+        uses: expo/expo-github-action@v8
         with:
           expo-version: latest
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
+      - name: ⛏️ Setup EAS local builds
+        run: yarn global add eas-cli-local-build-plugin
 
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: 📦 Install dependencies
+      - name: ⚙️ Install dependencies
         run: yarn install
 
 
-      - name: 🚀 Publish app Play Store
-        run: eas submit -p android --profile production --non-interactive
+      - name: 🏗️ EAS Build
+        run: yarn use-build-number eas build -p android --profile production --local --output build.aab --non-interactive
+
+      - name: 🚀 Deploy
+        run: eas submit -p android --non-interactive --path build.aab
