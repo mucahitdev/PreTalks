@@ -10,15 +10,12 @@ import QuestionArea from "./questionArea";
 
 import { APP_NAV, TAB_BAR_NAV } from "@/common/constants";
 // import MockWords from "@/common/data/questions/index.json";
-import { newQuestions } from "@/common/data/questions/newQuestions";
+import words from "@/common/data/allWords";
+// import { newQuestions } from "@/common/data/questions/newQuestions";
 import { theme } from "@/common/theme";
 import ResultQuestionBottomSheet from "@/components/bottomSheet/resultQuestion";
 import { generateQuestions } from "@/helpers";
-import {
-  useBackEnabled,
-  useSetAndroidNavBarColor,
-  useSoundPlayer,
-} from "@/hooks";
+import { useBackEnabled, useSoundPlayer } from "@/hooks";
 
 interface GameAreaScreenProps {
   navigation?: any;
@@ -38,12 +35,11 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
 
   // Hooks
   useBackEnabled(navigation, isLastQuestion);
-  useSetAndroidNavBarColor(theme.colors.primary);
-  const { playSound } = useSoundPlayer();
+  const { playSound, stopSound } = useSoundPlayer();
 
   useEffect(() => {
     if (questions.length === 0) {
-      const _newQuestions = generateQuestions(newQuestions);
+      const _newQuestions = generateQuestions(words);
       setQuestions(_newQuestions);
     }
   }, []);
@@ -95,6 +91,7 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       closeBottomSheet();
       resetAnimation();
+      stopSound("TIME_UP");
       if (currentQuestionIndex === questions.length - 2) {
         setIsLastQuestion(true);
       }
@@ -110,18 +107,25 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.gameInfoContainer}>
-        <Text>Kelime Avı</Text>
-        <Text>Puan: {score}</Text>
-        <CircularProgress
-          ref={circleRef}
-          value={0}
-          duration={15000}
-          maxValue={15}
-          initialValue={15}
-          radius={28}
-          startInPausedState={false}
-          onAnimationComplete={onAnimationComplete}
-        />
+        <View style={styles.gameInfos}>
+          <Text style={styles.gameInfoText}>Puan: {score}</Text>
+          <Text style={styles.gameInfoText}>
+            Soru: {currentQuestionIndex + 1}
+          </Text>
+        </View>
+        <Text style={styles.gameModeText}>Kelime Avı</Text>
+        <View style={{ flex: 1, alignItems: "flex-end" }}>
+          <CircularProgress
+            ref={circleRef}
+            value={0}
+            duration={15000}
+            maxValue={15}
+            initialValue={15}
+            radius={28}
+            startInPausedState={false}
+            onAnimationComplete={onAnimationComplete}
+          />
+        </View>
       </View>
 
       <QuestionArea
@@ -133,6 +137,7 @@ const GameAreaScreen: FC<GameAreaScreenProps> = ({ navigation }) => {
         resultBS={resultBS}
         ref={bottomSheetRef}
         isLastQuestion={isLastQuestion}
+        currentQuestion={currentQuestion}
         goToNextQuestion={goToNextQuestion}
       />
     </SafeAreaView>
@@ -151,6 +156,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     height: 80,
+  },
+  gameModeText: {
+    color: "white",
+    fontSize: 24,
+  },
+  gameInfos: {
+    flex: 1,
+  },
+  gameInfoText: {
+    color: theme.colors.highlightBackground,
+    fontSize: 16,
   },
 });
 

@@ -2,7 +2,7 @@
   "expo": {
     "name": "PreTalks",
     "slug": "pretalks",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -11,15 +11,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "com.koksoft.pretalks"
     },
     "android": {
       "package": "com.koksoft.pretalks",
-      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
@@ -47,7 +47,8 @@
             "useFrameworks": "static"
           }
         }
-      ]
+      ],
+      "expo-font"
     ],
     "runtimeVersion": "1.0.0",
     "updates": {

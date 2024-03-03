@@ -1,20 +1,39 @@
-import { FC } from "react";
-import { View, Text, StyleSheet, SectionList, Switch } from "react-native";
+import { FC, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SectionList,
+  Switch,
+  Pressable,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 
 import { theme } from "@/common/theme";
+import { BigButton } from "@/components";
 import { handleToggle } from "@/helpers";
 import { toggleSetting } from "@/store/settingsReducer";
 
 const SettingsScreen: FC = () => {
+  const [isDevMode, setIsDevMode] = useState(false);
+  const [count, setCount] = useState(0);
   const sections = useSelector((state: any) => state.settings.sections);
   const dispatch = useDispatch();
 
   const onToggle = async (sectionId: number, itemId: number) => {
+    if (sectionId === 2) {
+      setCount(count + 1);
+    }
     const updatedSections = handleToggle(sections, sectionId, itemId);
 
     dispatch(toggleSetting(updatedSections));
+  };
+
+  const onLong = () => {
+    if (count > 3) {
+      setIsDevMode(true);
+    }
   };
 
   const renderListItem = (item: any) => {
@@ -39,15 +58,19 @@ const SettingsScreen: FC = () => {
     <SafeAreaView edges={["top"]} style={styles.container}>
       <View>
         <Text style={styles.pageTitle}>Ayarlar</Text>
+
         <SectionList
           sections={sections}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => renderListItem(item)}
           renderSectionHeader={({ section: { title } }) => (
-            <Text style={styles.sectionHeader}>{title}</Text>
+            <Pressable onLongPress={onLong}>
+              <Text style={styles.sectionHeader}>{title}</Text>
+            </Pressable>
           )}
         />
       </View>
+      {isDevMode && <BigButton style={{ height: 56 }}>Action</BigButton>}
     </SafeAreaView>
   );
 };

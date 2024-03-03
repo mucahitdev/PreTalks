@@ -21,10 +21,15 @@ const QuestionArea: FC<QuestionAreaProps> = ({
   const isWordReadingOn = useSelector(selectIsWordReadingOn);
   const [isMute, setIsMute] = useState(!isWordReadingOn);
 
-  const { word, answers, levelId } = currentQuestion;
-  const { text, color } = getLevelDescriptor(levelId);
+  const { word, answers, level, correctAnswer } = currentQuestion;
+  const { text, color } = getLevelDescriptor(level);
 
   useSpeech({ text: word, enable: !isMute });
+
+  const handlePress = (item: string) => {
+    const isCorrect = correctAnswer === item;
+    handleAnswerSelection(isCorrect);
+  };
 
   return (
     <>
@@ -40,13 +45,13 @@ const QuestionArea: FC<QuestionAreaProps> = ({
         >
           {isMute ? (
             <Ionicons
-              name="ios-volume-off"
+              name="volume-mute"
               size={30}
               color={theme.colors.primary}
             />
           ) : (
             <Ionicons
-              name="ios-volume-medium"
+              name="volume-medium-sharp"
               size={30}
               color={theme.colors.primary}
             />
@@ -58,9 +63,9 @@ const QuestionArea: FC<QuestionAreaProps> = ({
           key={index}
           labelStyle={styles.answerText}
           style={styles.answerTextContainer}
-          onPress={() => handleAnswerSelection(item.isCorrect)}
+          onPress={() => handlePress(item)}
         >
-          {item.answer}
+          {item}
         </BigButton>
       ))}
     </>

@@ -5,12 +5,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { APP_NAV, GAME_NAV } from "@/common/constants";
 import { gameCategories } from "@/common/data/gameCategories";
 import { theme } from "@/common/theme";
+import { useSetAndroidNavBarColor } from "@/hooks";
 
 interface HomeScreenProps {
   navigation: any;
 }
 
 const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
+  useSetAndroidNavBarColor(theme.colors.primary);
+
   return (
     <SafeAreaView edges={["top"]} style={styles.container}>
       <FlatList

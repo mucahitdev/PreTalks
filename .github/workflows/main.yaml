@@ -1,22 +1,21 @@
-name: Prebuild - Publish to Expo 
-
+name: Main - Publish to Google Play Store
 
 on:
   push:
     branches:
-      - prebuild
+      - main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
 
 
       - name: 🏗 Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v2
         with:
           node-version: 18.x
           cache: yarn
@@ -37,4 +36,4 @@ jobs:
 
 
       - name: 🚀 Publish app
-        run: eas update --auto
+        run: eas submit -p android --profile production

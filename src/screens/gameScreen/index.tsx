@@ -6,7 +6,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { GAME_NAV } from "@/common/constants";
 import { theme } from "@/common/theme";
 import { BigButton } from "@/components";
-import { useSetAndroidNavBarColor } from "@/hooks";
 
 interface GameScreenProps {
   navigation?: any;
@@ -16,10 +15,8 @@ interface GameScreenProps {
 const GameScreen: FC<GameScreenProps> = ({ route, navigation }) => {
   const { data } = route.params;
 
-  useSetAndroidNavBarColor(theme.colors.primary);
-
   return (
-    <SafeAreaView edges={["top"]} style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <LottieView
         autoPlay
         style={{
@@ -72,7 +69,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 32,
     backgroundColor: "#FF4B91",
-    marginBottom: 100,
+    marginBottom: 20,
   },
 });
 
