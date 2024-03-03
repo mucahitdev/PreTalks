@@ -36,4 +36,4 @@ jobs:
 
 
       - name: 🚀 Publish app Play Store
-        run: eas submit -p android --profile production --non-interactive --path build.aab
+        run: eas submit -p android --profile production --non-interactive
