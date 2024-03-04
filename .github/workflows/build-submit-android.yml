@@ -41,7 +41,7 @@ jobs:
 
 
       - name: 🏗️ EAS Build
-        run: yarn use-build-number eas build -p android --profile production --local --output build.aab --non-interactive
+        run: yarn eas build -p android --profile production --local --output build.aab --non-interactive
 
       - name: 🚀 Deploy
         run: eas submit -p android --non-interactive --path build.aab
