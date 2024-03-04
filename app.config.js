@@ -95,19 +95,19 @@ module.exports = function (config) {
       experiments: {
         tsconfigPaths: true,
       },
-      plugins: [
-        "@react-native-firebase/app",
-        "@react-native-firebase/crashlytics",
-        [
-          "expo-build-properties",
-          {
-            ios: {
-              useFrameworks: "static",
-            },
-          },
-        ],
-        "expo-font",
-      ],
+      //   plugins: [
+      //     "@react-native-firebase/app",
+      //     "@react-native-firebase/crashlytics",
+      //     [
+      //       "expo-build-properties",
+      //       {
+      //         ios: {
+      //           useFrameworks: "static",
+      //         },
+      //       },
+      //     ],
+      //     "expo-font",
+      //   ],
     },
   };
 };
