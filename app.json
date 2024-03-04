@@ -11,6 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -50,8 +51,9 @@
       ],
       "expo-font"
     ],
-    "runtimeVersion": "1.0.0",
     "updates": {
+      "enabled": true,
+      "fallbackToCacheTimeout": 1000,
       "url": "https://u.expo.dev/1ee2d6b3-6c96-405b-9761-b403914e663a"
     }
   }
