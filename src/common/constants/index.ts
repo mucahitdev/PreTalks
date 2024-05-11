@@ -7,6 +7,7 @@ export const APP_NAV = {
 export const TAB_BAR_NAV = {
   HOME: "HomeScreen",
   SETTINGS: "SettingsScreen",
+  DICTIONARY: "DictionarySecreen",
 };
 
 export const GAME_NAV = {
