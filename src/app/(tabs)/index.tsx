@@ -1,14 +1,15 @@
 import { Stack } from 'expo-router';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { ScreenContent } from '~/components/ScreenContent';
+import { ScreenContent } from '@/com/ScreenContent';
 
 export default function Home() {
   return (
     <>
-      <Stack.Screen options={{ title: 'Tab Two' }} />
+      <Stack.Screen options={{ title: 'Tab One' }} />
       <View style={styles.container}>
-        <ScreenContent path="app/(tabs)/two.tsx" title="Tab Two" />
+        <ScreenContent path="app/(tabs)/index.tsx" title="Tab One" />
       </View>
     </>
   );
