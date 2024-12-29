@@ -7,12 +7,13 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: 'black',
+        headerShown: false,
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Öğren',
+          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
         }}
       />
       <Tabs.Screen
