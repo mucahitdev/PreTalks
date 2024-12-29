@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import CategoryProgress from '@/com/cards/CategoryProgress';
+import CategoryProgress from '@/com/Cards/CategoryProgress';
 import { theme } from '@/common/theme';
 
 const wordCategories = [

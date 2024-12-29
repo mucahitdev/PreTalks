@@ -1,32 +1,30 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Text, Button } from 'react-native-paper';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { StyleSheet, View, Dimensions } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { Button } from 'react-native-paper';
+import Animated, {
+  useAnimatedStyle,
+  withSpring,
+  useSharedValue,
+  runOnJS,
+} from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useSettingsStore } from '../store/settingsStore';
+import { CategoriesScreen, LanguageScreen, WelcomeScreen } from '@/com/Core/Onboarding';
+import { useSettingsStore } from '@/store/settingsStore';
 
-const onboardingData = [
-  {
-    title: 'Welcome to PreTalks',
-    description: 'Your new favorite communication platform',
-  },
-  {
-    title: 'Connect with Others',
-    description: 'Meet and chat with people who share your interests',
-  },
-  {
-    title: 'Start Your Journey',
-    description: "Ready to begin? Let's get started!",
-  },
-];
+const { width } = Dimensions.get('window');
+const SWIPE_THRESHOLD = width * 0.3;
 
 export default function OnboardingScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const offset = useSharedValue(0);
   const { setHasCompletedOnboarding } = useSettingsStore();
 
   const handleNext = () => {
-    if (currentIndex < onboardingData.length - 1) {
+    if (currentIndex < 2) {
+      offset.value = withSpring(-width * (currentIndex + 1), { damping: 15 });
       setCurrentIndex(currentIndex + 1);
     } else {
       setHasCompletedOnboarding(true);
@@ -34,20 +32,68 @@ export default function OnboardingScreen() {
     }
   };
 
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      offset.value = withSpring(-width * (currentIndex - 1), { damping: 15 });
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  const panGesture = Gesture.Pan()
+    .onUpdate((e) => {
+      const baseOffset = -width * currentIndex;
+      if (
+        (currentIndex === 0 && e.translationX > 0) || // First screen, prevent right swipe
+        (currentIndex === 2 && e.translationX < 0) // Last screen, prevent left swipe
+      ) {
+        offset.value = baseOffset + e.translationX / 3; // Add resistance
+      } else {
+        offset.value = baseOffset + e.translationX;
+      }
+    })
+    .onEnd((e) => {
+      if (e.translationX < -SWIPE_THRESHOLD && currentIndex < 2) {
+        runOnJS(handleNext)();
+      } else if (e.translationX > SWIPE_THRESHOLD && currentIndex > 0) {
+        runOnJS(handlePrevious)();
+      } else {
+        // Spring back to current position
+        offset.value = withSpring(-width * currentIndex, { damping: 15 });
+      }
+    });
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: offset.value }],
+    width: width * 3,
+    flexDirection: 'row',
+  }));
+
+  const renderScreen = (index: number) => {
+    switch (index) {
+      case 0:
+        return <WelcomeScreen />;
+      case 1:
+        return <LanguageScreen />;
+      case 2:
+        return <CategoriesScreen />;
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Animated.View entering={FadeIn} exiting={FadeOut} key={currentIndex} style={styles.content}>
-        <Text variant="headlineMedium" style={styles.title}>
-          {onboardingData[currentIndex].title}
-        </Text>
-        <Text variant="bodyLarge" style={styles.description}>
-          {onboardingData[currentIndex].description}
-        </Text>
-      </Animated.View>
+    <SafeAreaView style={styles.container}>
+      <GestureDetector gesture={panGesture}>
+        <View style={styles.viewportContainer}>
+          <Animated.View style={animatedStyle}>
+            {renderScreen(0)}
+            {renderScreen(1)}
+            {renderScreen(2)}
+          </Animated.View>
+        </View>
+      </GestureDetector>
 
       <View style={styles.footer}>
         <View style={styles.pagination}>
-          {onboardingData.map((_, index) => (
+          {[0, 1, 2].map((index) => (
             <View
               key={index}
               style={[styles.paginationDot, index === currentIndex && styles.paginationDotActive]}
@@ -55,10 +101,10 @@ export default function OnboardingScreen() {
           ))}
         </View>
         <Button mode="contained" onPress={handleNext} style={styles.button}>
-          {currentIndex === onboardingData.length - 1 ? 'Get Started' : 'Next'}
+          {currentIndex === 2 ? 'Başla' : 'Devam Et'}
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -67,7 +113,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  content: {
+  viewportContainer: {
+    flex: 1,
+    overflow: 'hidden',
+  },
+  screen: {
+    width,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -81,6 +132,20 @@ const styles = StyleSheet.create({
   description: {
     textAlign: 'center',
     color: '#666',
+    marginBottom: 20,
+  },
+  languageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  categoriesContainer: {
+    width: '100%',
+  },
+  categoryItem: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
   footer: {
     padding: 20,

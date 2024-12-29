@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, StyleSheet, View, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Chip from '@/com/Chip';
+import Chip from '@/com/Chips/Chip';
 
 const categories = [
   { id: 1, name: 'Kategori 1' },

@@ -2,6 +2,7 @@ import { useFonts } from 'expo-font';
 import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import Fonts from '@/common/fonts';
 import { useSettingsStore } from '@/store/settingsStore';
@@ -15,32 +16,34 @@ export const unstable_settings = {
 export default function RootLayout() {
   const [loaded] = useFonts(Fonts);
   const router = useRouter();
-  const onboardingComlated = useSettingsStore((state) => state.hasCompletedOnboarding);
+  const onboardingCompleted = useSettingsStore((state) => state.hasCompletedOnboarding);
 
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      if (!onboardingComlated) {
+      if (!onboardingCompleted) {
         router.replace('/onboarding');
       }
     }
-  }, [loaded, onboardingComlated]);
+  }, [loaded, onboardingCompleted]);
 
   if (!loaded) {
     return null;
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="(noTabs)" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="onboarding"
-        options={{
-          headerShown: false,
-          gestureEnabled: false,
-        }}
-      />
-    </Stack>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(noTabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="onboarding"
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}
+        />
+      </Stack>
+    </GestureHandlerRootView>
   );
 }
