@@ -1,17 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { ProgressBar } from 'react-native-paper';
+
+import ProgressBar from '../ProgressBar';
 
 import { CategoryProgressType } from '@/types/category';
 
-export default function CategoryProgress({ name, totalWord, learnedWord }: CategoryProgressType) {
-  const progress = Number((learnedWord / totalWord).toFixed(2));
+const MOCK_COUNT = 10;
+
+export default function CategoryProgress({ name, categoryId, count }: CategoryProgressType) {
+  const progress = count > 0 ? MOCK_COUNT / count : 0;
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text>{name}</Text>
         <Text>
-          {learnedWord}/{totalWord}
+          {MOCK_COUNT}/{count}
         </Text>
       </View>
       <ProgressBar progress={progress} color="blue" />

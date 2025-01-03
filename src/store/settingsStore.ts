@@ -3,11 +3,12 @@ import * as Localization from 'expo-localization';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+import { categoryNames } from '@/common/data/allWords';
+
 export type Language = 'en' | 'tr';
 
 export interface Category {
   id: string;
-  name: string;
   selected: boolean;
 }
 
@@ -20,15 +21,10 @@ interface SettingsState {
   toggleCategory: (categoryId: string) => void;
 }
 
-const defaultCategories = [
-  { id: '1', name: 'Software Development', selected: false },
-  { id: '2', name: 'Design', selected: false },
-  { id: '3', name: 'Business', selected: false },
-  { id: '4', name: 'Marketing', selected: false },
-  { id: '5', name: 'Education', selected: false },
-  { id: '6', name: 'Healthcare', selected: false },
-];
-
+const defaultCategories = Object.keys(categoryNames).map((id) => ({
+  id,
+  selected: false,
+}));
 // Get initial language based on device locale
 const getInitialLanguage = (): Language => {
   const deviceLocale = Localization.locale.split('-')[0]; // Get primary language code
@@ -53,7 +49,7 @@ export const useSettingsStore = create<SettingsState>()(
         })),
     }),
     {
-      name: 'settings-storage',
+      name: 'settingr12-storage',
       storage: createJSONStorage(() => AsyncStorage),
     }
   )

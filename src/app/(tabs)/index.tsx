@@ -1,55 +1,51 @@
 import { router } from 'expo-router';
 import React from 'react';
 import { StyleSheet, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CategoryProgress from '@/com/Cards/CategoryProgress';
 import { theme } from '@/common/theme';
-
-const wordCategories = [
-  {
-    id: 1,
-    name: 'Hayvanlar',
-    totalWord: 20,
-    learnedWord: 3,
-  },
-  {
-    id: 2,
-    name: 'Meyveler',
-    totalWord: 10,
-    learnedWord: 5,
-  },
-  {
-    id: 3,
-    name: 'Renkler',
-    totalWord: 10,
-    learnedWord: 5,
-  },
-  {
-    id: 4,
-    name: 'Sayılar',
-    totalWord: 11,
-    learnedWord: 11,
-  },
-];
+import { useWords } from '@/context/WordsContext';
+import { useSettingsStore } from '@/store/settingsStore';
 
 export default function Home() {
+  const { wordManager } = useWords();
+  const setHasCompletedOnboarding = useSettingsStore((state) => state.setHasCompletedOnboarding);
+  const categories = useSettingsStore((state) => state.categories);
+  const selectedCategories = categories.filter((cat) => cat.selected);
+
+  const wordsCategory = wordManager?.getWordCountByCategory(selectedCategories) || [];
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
+      <TouchableOpacity onPress={() => setHasCompletedOnboarding(false)}>
+        <Text>Reset</Text>
+      </TouchableOpacity>
+      <View style={styles.header}>
+        <Text style={styles.dayText}>Gün: 1</Text>
+        <TouchableOpacity
+          onPress={() => router.push('/(noTabs)/gamearea')}
+          style={styles.newWordLearn}>
+          <Text>Yeni Kelime Öğren</Text>
+        </TouchableOpacity>
+      </View>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.header}>
-          <Text style={styles.dayText}>Gün: 1</Text>
-          <TouchableOpacity
-            onPress={() => router.push('/(noTabs)/gamearea')}
-            style={styles.newWordLearn}>
-            <Text>Yeni Kelime Öğren</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.categories}>
-          {wordCategories.map((category) => (
-            <CategoryProgress key={category.id} {...category} />
-          ))}
-        </View>
+        <Text style={{ marginHorizontal: 16, marginTop: 16 }}>Kategoriler</Text>
+        {wordsCategory?.length > 1 && (
+          <View style={styles.categories}>
+            {wordsCategory?.map((category) => (
+              <CategoryProgress key={category.categoryId} {...category} />
+            ))}
+          </View>
+        )}
+        <Button
+          style={{ marginHorizontal: 16 }}
+          icon="square-edit-outline"
+          mode="contained"
+          onPress={() => router.navigate('/categoryedit')}>
+          Kategorileri Düzenle
+        </Button>
       </ScrollView>
     </SafeAreaView>
   );
@@ -63,7 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    padding: 24,
+    padding: 16,
     gap: 16,
     backgroundColor: '#ccc',
     borderEndEndRadius: 24,
@@ -80,7 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   categories: {
-    padding: 24,
+    padding: 16,
     gap: 8,
   },
 });

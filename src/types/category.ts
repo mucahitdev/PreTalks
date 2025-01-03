@@ -1,6 +1,5 @@
 export interface CategoryProgressType {
-  id: number;
+  categoryId: number;
   name: string;
-  totalWord: number;
-  learnedWord: number;
+  count: number;
 }

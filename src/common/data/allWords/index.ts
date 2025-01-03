@@ -35,34 +35,38 @@ type Translations = {
   };
 };
 
-// const category = {
-//   1: 'Seyahat',
-//   2: 'Alışveriş',
-//   3: 'Aile ve Arkadaşlar',
-//   4: 'Okul ve Eğitim',
-//   5: 'İş',
-//   6: 'İletişim',
-//   7: 'Hisler ve Duygular',
-//   8: 'Dışarda Yemek',
-//   9: 'Yeme İçme',
-//   10: 'Sağlık ve Tıp',
-//   11: 'Ev ve Yaşam',
-//   12: 'Şehirde Yaşam',
-//   13: 'Giysi ve Aksesuar',
-//   14: 'Sinama ve Tiyatro',
-//   15: 'Teknoloji',
-//   16: 'Medya',
-//   17: 'Hava İklim',
-//   18: 'Hayvanlar',
-//   19: 'Coğrafya',
-//   20: 'Araç ve Taşıtlar',
-//   21: 'Spor',
-//   22: 'Bitkiler',
-//   23: 'Genel Fiiller',
-//   24: 'Genel İsimler',
-//   25: 'Genel Sıfatlar',
-//   26: 'Genel Zamanlar',
-// };
+interface CategoryNames {
+  [key: string]: string;
+}
+
+export const categoryNames: CategoryNames = {
+  1: 'Seyahat',
+  2: 'Alışveriş',
+  3: 'Aile ve Arkadaşlar',
+  4: 'Okul ve Eğitim',
+  5: 'İş',
+  6: 'İletişim',
+  7: 'Hisler ve Duygular',
+  8: 'Dışarda Yemek',
+  9: 'Yeme İçme',
+  10: 'Sağlık ve Tıp',
+  11: 'Ev ve Yaşam',
+  12: 'Şehirde Yaşam',
+  13: 'Giysi ve Aksesuar',
+  14: 'Sinama ve Tiyatro',
+  15: 'Teknoloji',
+  16: 'Medya',
+  17: 'Hava İklim',
+  18: 'Hayvanlar',
+  19: 'Coğrafya',
+  20: 'Araç ve Taşıtlar',
+  21: 'Spor',
+  22: 'Bitkiler',
+  23: 'Genel Fiiller',
+  24: 'Genel İsimler',
+  25: 'Genel Sıfatlar',
+  26: 'Genel Zamanlar',
+};
 
 export type WordType = {
   id: number;
