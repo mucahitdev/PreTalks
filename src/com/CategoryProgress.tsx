@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import ProgressBar from '../ProgressBar';
+import ProgressBar from './ProgressBar';
 
 import { CategoryProgressType } from '@/types/category';
 
@@ -17,7 +17,7 @@ export default function CategoryProgress({ name, categoryId, count }: CategoryPr
           {MOCK_COUNT}/{count}
         </Text>
       </View>
-      <ProgressBar progress={progress} color="blue" />
+      <ProgressBar progress={progress} color="blues" />
     </View>
   );
 }

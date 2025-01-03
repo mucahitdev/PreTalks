@@ -4,7 +4,7 @@ import { StyleSheet, ScrollView, Text, View, TouchableOpacity } from 'react-nati
 import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import CategoryProgress from '@/com/Cards/CategoryProgress';
+import CategoryProgress from '@/com/CategoryProgress';
 import { theme } from '@/common/theme';
 import { useWords } from '@/context/WordsContext';
 import { useSettingsStore } from '@/store/settingsStore';
