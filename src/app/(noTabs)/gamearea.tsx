@@ -1,5 +1,7 @@
+import * as Haptics from 'expo-haptics';
 import React, { useRef, useState } from 'react';
 import { Text, StyleSheet, View, FlatList } from 'react-native';
+import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BackButton } from '@/com/Buttons/BackButton';
@@ -9,7 +11,9 @@ import { theme } from '@/common/theme';
 import { useWords } from '@/context/WordsContext';
 import { useSettingsStore } from '@/store/settingsStore';
 
-export default function GameareaSecreen() {
+const MAX_LEARN_WORDS = 4;
+
+export default function GameareaScreen() {
   const { wordManager } = useWords();
   const categories = useSettingsStore((state) => state.categories);
   const selectedCategories = categories.filter((cat) => cat.selected);
@@ -33,11 +37,20 @@ export default function GameareaSecreen() {
     });
   };
 
+  const scroolToWordIndex = (index: number) => {
+    if (index !== categoryWords.length - 1) {
+      wordFlatList.current?.scrollToIndex({
+        index: index + 1,
+        animated: true,
+      });
+    }
+  };
+
   const handleKnowPress = (index: number) => {
     if (selectedKnowWordsIndex.includes(index)) {
       setSelectedKnowWordsIndex(selectedKnowWordsIndex.filter((i) => i !== index));
     } else {
-      wordFlatList.current?.scrollToIndex({ index: index + 1, animated: true });
+      scroolToWordIndex(index);
       setSelectedKnowWordsIndex([...selectedKnowWordsIndex, index]);
     }
   };
@@ -45,17 +58,33 @@ export default function GameareaSecreen() {
   const handleLearnPress = (index: number) => {
     if (selectedLearnWordsIndex.includes(index)) {
       setSelectedLearnWordsIndex(selectedLearnWordsIndex.filter((i) => i !== index));
+    } else if (selectedLearnWordsIndex.length >= MAX_LEARN_WORDS) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     } else {
-      wordFlatList.current?.scrollToIndex({ index: index + 1, animated: true });
+      scroolToWordIndex(index);
       setSelectedLearnWordsIndex([...selectedLearnWordsIndex, index]);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     }
+  };
+
+  const handleContinue = () => {
+    console.log(
+      'Selected words:',
+      selectedLearnWordsIndex.map((index) => categoryWords[index])
+    );
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <BackButton color="white" />
-        <Text style={styles.headerText}>Seçildi {selectedLearnWordsIndex.length}/4</Text>
+        <Text
+          style={[
+            styles.headerText,
+            selectedLearnWordsIndex.length >= MAX_LEARN_WORDS && styles.headerTextWarning,
+          ]}>
+          Seçildi {selectedLearnWordsIndex.length}/{MAX_LEARN_WORDS}
+        </Text>
         <Text>...</Text>
       </View>
       <View style={styles.categoryContainer}>
@@ -89,6 +118,10 @@ export default function GameareaSecreen() {
               handleLearnPress={() => handleLearnPress(index)}
               knowWord={selectedKnowWordsIndex.includes(index)}
               learnWord={selectedLearnWordsIndex.includes(index)}
+              disableLearn={
+                selectedLearnWordsIndex.length >= MAX_LEARN_WORDS &&
+                !selectedLearnWordsIndex.includes(index)
+              }
             />
           )}
           keyExtractor={(item) => item.id.toString()}
@@ -100,6 +133,14 @@ export default function GameareaSecreen() {
           style={{ paddingVertical: 16 }}
         />
       </View>
+      {selectedLearnWordsIndex.length >= MAX_LEARN_WORDS && (
+        <Button
+          onPress={handleContinue}
+          style={styles.continueButton}
+          labelStyle={styles.continueButtonLabel}>
+          Devam Et
+        </Button>
+      )}
     </SafeAreaView>
   );
 }
@@ -123,10 +164,22 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: theme.fonts.bold,
   },
+  headerTextWarning: {
+    color: 'lightgreen',
+  },
   categoryTitle: {
     fontSize: 18,
     color: 'white',
     fontFamily: theme.fonts.semiBold,
     paddingLeft: 16,
+  },
+  continueButton: {
+    margin: 16,
+    backgroundColor: 'lightgreen',
+  },
+  continueButtonLabel: {
+    fontSize: 16,
+    color: theme.colors.accent,
+    fontFamily: theme.fonts.bold,
   },
 });

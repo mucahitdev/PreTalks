@@ -13,6 +13,7 @@ interface SelectWordCardProps extends WordType {
   handleLearnPress: () => void;
   knowWord: boolean;
   learnWord: boolean;
+  disableLearn?: boolean;
 }
 
 export default function SelectWordCard({
@@ -22,6 +23,7 @@ export default function SelectWordCard({
   handleLearnPress,
   knowWord,
   learnWord,
+  disableLearn = false,
 }: SelectWordCardProps) {
   return (
     <View style={styles.container}>
@@ -36,9 +38,10 @@ export default function SelectWordCard({
           />
           <Button
             title={learnWord ? 'Öğrenmek İstemiyorum' : 'Öğren'}
-            style={styles.wantToLearnButton}
-            titleStyle={{ color: 'black' }}
+            style={[styles.wantToLearnButton, disableLearn && styles.disabledButton]}
+            titleStyle={[{ color: 'black' }, disableLearn && styles.disabledButtonText]}
             onPress={handleLearnPress}
+            disabled={disableLearn}
           />
         </View>
       </View>
@@ -78,5 +81,11 @@ const styles = StyleSheet.create({
   },
   wantToLearnButton: {
     backgroundColor: 'lightgreen',
+  },
+  disabledButton: {
+    backgroundColor: '#e0e0e0',
+  },
+  disabledButtonText: {
+    color: '#999',
   },
 });
