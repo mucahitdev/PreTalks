@@ -31,18 +31,22 @@ export default function SelectWordCard({
         <Text style={styles.wordText}>{word}</Text>
         <Text style={styles.translationText}>{translations?.tr.first}</Text>
         <View style={styles.buttonsContainer}>
-          <Button
-            title={knowWord ? 'Bilmiyorum' : 'Biliyorum'}
-            style={styles.iKnowButton}
-            onPress={handleKnowPress}
-          />
-          <Button
-            title={learnWord ? 'Öğrenmek İstemiyorum' : 'Öğren'}
-            style={[styles.wantToLearnButton, disableLearn && styles.disabledButton]}
-            titleStyle={[{ color: 'black' }, disableLearn && styles.disabledButtonText]}
-            onPress={handleLearnPress}
-            disabled={disableLearn}
-          />
+          {!learnWord && (
+            <Button
+              title={knowWord ? 'Bilmiyorum' : 'Biliyorum'}
+              style={styles.iKnowButton}
+              onPress={handleKnowPress}
+            />
+          )}
+          {!knowWord && (
+            <Button
+              title={learnWord ? 'Öğrenmek İstemiyorum' : 'Öğren'}
+              style={[styles.wantToLearnButton, disableLearn && styles.disabledButton]}
+              titleStyle={[{ color: 'black' }, disableLearn && styles.disabledButtonText]}
+              onPress={handleLearnPress}
+              disabled={disableLearn}
+            />
+          )}
         </View>
       </View>
     </View>

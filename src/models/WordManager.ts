@@ -25,6 +25,10 @@ export class WordManager {
     );
   }
 
+  getWordByIds(ids: number[]): WordType[] {
+    return this.words.filter((word) => ids.includes(word.id));
+  }
+
   getWordsByCategory(categoryId: number): WordType[] {
     return this.groupedWords[categoryId] || [];
   }
