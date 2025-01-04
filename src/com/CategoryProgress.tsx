@@ -17,7 +17,7 @@ export default function CategoryProgress({ name, categoryId, count }: CategoryPr
           {MOCK_COUNT}/{count}
         </Text>
       </View>
-      <ProgressBar progress={progress} color="blues" />
+      <ProgressBar progress={progress} color="blue" />
     </View>
   );
 }
