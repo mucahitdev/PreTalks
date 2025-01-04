@@ -38,6 +38,7 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="(noTabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(game)/game-area" options={{ headerShown: false }} />
           <Stack.Screen
             name="onboarding"
             options={{

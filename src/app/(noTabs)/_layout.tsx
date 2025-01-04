@@ -6,7 +6,7 @@ export default function StackLayout() {
   return (
     <Stack>
       <Stack.Screen
-        name="gamearea"
+        name="word-selection-step"
         options={{
           headerShown: false,
           gestureEnabled: false,

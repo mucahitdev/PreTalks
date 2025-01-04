@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
+import { router } from 'expo-router';
 import React, { useRef, useState, useMemo } from 'react';
 import { Text, StyleSheet, View, FlatList, Dimensions, Pressable, ScrollView } from 'react-native';
 import { Button, Surface } from 'react-native-paper';
@@ -18,7 +19,7 @@ const { width } = Dimensions.get('window');
 const SELECTED_CARD_WIDTH = width * 0.4;
 const KNOWN_CARD_WIDTH = width * 0.25;
 
-export default function GameareaScreen() {
+export default function WordSelectionStepScreen() {
   const { wordManager } = useWords();
   const categories = useSettingsStore((state) => state.categories);
   const selectedCategories = categories.filter((cat) => cat.selected);
@@ -73,10 +74,6 @@ export default function GameareaScreen() {
     }
   };
 
-  const handleContinue = () => {
-    console.log('Selected words:');
-  };
-
   const renderSelectedWordCard = ({ item, index }: { item: WordType; index: number }) => (
     <Surface style={styles.selectedWordCard} elevation={2}>
       <Pressable style={styles.closeButton} onPress={() => handleLearnPress(item.id)}>
@@ -106,6 +103,15 @@ export default function GameareaScreen() {
     () => wordManager?.getWordByIds(selectedKnowWordsId) || [],
     [selectedKnowWordsId]
   );
+
+  const handleContinue = () => {
+    router.replace({
+      pathname: '/(game)/game-area',
+      params: {
+        selectedWordIds: selectedLearnWordsId.join(','),
+      },
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>

@@ -25,7 +25,7 @@ export default function Home() {
       <View style={styles.header}>
         <Text style={styles.dayText}>Gün: 1</Text>
         <TouchableOpacity
-          onPress={() => router.push('/(noTabs)/gamearea')}
+          onPress={() => router.push('/(noTabs)/word-selection-step')}
           style={styles.newWordLearn}>
           <Text>Yeni Kelime Öğren</Text>
         </TouchableOpacity>
