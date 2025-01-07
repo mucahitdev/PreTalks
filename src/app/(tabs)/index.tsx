@@ -22,6 +22,13 @@ export default function Home() {
       <TouchableOpacity onPress={() => setHasCompletedOnboarding(false)}>
         <Text>Reset</Text>
       </TouchableOpacity>
+      {/* // TODO: Remove this button */}
+      <TouchableOpacity
+        onPress={() =>
+          router.push({ pathname: '/(game)/game-area', params: { selectedWordIds: '1,2,3,4' } })
+        }>
+        <Text>Go Gamearea</Text>
+      </TouchableOpacity>
       <View style={styles.header}>
         <Text style={styles.dayText}>Gün: 1</Text>
         <TouchableOpacity

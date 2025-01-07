@@ -2,6 +2,7 @@ import { useFonts } from 'expo-font';
 import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { LogViewer, overrideConsole } from 'react-native-console-modal';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import Fonts from '@/common/fonts';
@@ -9,6 +10,7 @@ import { WordsProvider } from '@/context/WordsContext';
 import { useSettingsStore } from '@/store/settingsStore';
 
 SplashScreen.preventAutoHideAsync();
+overrideConsole();
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -48,6 +50,7 @@ export default function RootLayout() {
           />
         </Stack>
       </WordsProvider>
+      <LogViewer />
     </GestureHandlerRootView>
   );
 }
