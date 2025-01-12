@@ -26,7 +26,7 @@ export default function WordSelectionStepScreen() {
   const wordsCategory = wordManager?.getWordCountByCategory(selectedCategories) || [];
 
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number>(0);
-  console.log('category id', selectedCategoryIndex);
+
   const [selectedLearnWordsId, setSelectedLearnWordsId] = useState<number[]>([]);
   const [selectedKnowWordsId, setSelectedKnowWordsId] = useState<number[]>([]);
 
