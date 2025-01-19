@@ -1,8 +1,18 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
+import * as Speech from 'expo-speech';
 import React, { useRef, useState, useMemo } from 'react';
-import { Text, StyleSheet, View, FlatList, Dimensions, Pressable, ScrollView } from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  FlatList,
+  Dimensions,
+  Pressable,
+  ScrollView,
+  ViewToken,
+} from 'react-native';
 import { Button, Surface } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -114,6 +124,25 @@ export default function WordSelectionStepScreen() {
     });
   };
 
+  const viewabilityConfig = React.useRef({
+    itemVisiblePercentThreshold: 50,
+    minimumViewTime: 100,
+  }).current;
+
+  const onViewableItemsChanged = React.useCallback(
+    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+      if (viewableItems.length > 0) {
+        const visibleItem = viewableItems[0].item as WordType;
+        Speech.speak(visibleItem.word, { language: 'en' });
+      }
+    },
+    []
+  );
+
+  const viewabilityConfigCallbackPairs = React.useRef([
+    { viewabilityConfig, onViewableItemsChanged },
+  ]).current;
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -172,6 +201,7 @@ export default function WordSelectionStepScreen() {
             pagingEnabled
             decelerationRate="fast"
             style={{ paddingVertical: 16 }}
+            viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs}
           />
         </View>
         {selectedKnowWordsId.length > 0 && (

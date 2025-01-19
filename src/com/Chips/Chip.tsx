@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 
+import { theme } from '@/common/theme';
+
 interface ChipProps {
   categoryId: number;
   name: string;
@@ -11,7 +13,7 @@ interface ChipProps {
 export default function Chip({ name, isSelected, onPress }: ChipProps) {
   return (
     <TouchableOpacity style={[styles.container, isSelected && styles.selected]} onPress={onPress}>
-      <Text>{name}</Text>
+      <Text style={styles.text}>{name}</Text>
     </TouchableOpacity>
   );
 }
@@ -23,6 +25,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   selected: {
-    backgroundColor: 'pink',
+    backgroundColor: '#79D7BE',
+  },
+  text: {
+    fontFamily: theme.fonts.bold,
+    color: theme.colors.accent,
   },
 });

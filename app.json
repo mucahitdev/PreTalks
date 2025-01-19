@@ -20,7 +20,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#6A5AE0"
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,
@@ -29,13 +30,10 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    // "splash": {
-    //   "image": "./assets/splash.png",
-    //   "resizeMode": "contain",
-    //   "backgroundColor": "#ffffff"
-    // },
     "newArchEnabled": true,
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
