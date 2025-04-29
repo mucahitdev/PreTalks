@@ -4,7 +4,7 @@ import {
   Quicksand_500Medium,
   Quicksand_600SemiBold,
   Quicksand_700Bold,
-} from "@expo-google-fonts/quicksand";
+} from '@expo-google-fonts/quicksand';
 
 const Quicksand = {
   Quicksand_300Light,

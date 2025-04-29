@@ -1,6 +1,6 @@
-import books from "assets/images/books.json";
-import clock from "assets/images/clock.json";
-import sword from "assets/images/sword.json";
+import books from 'assets/images/books.json';
+import clock from 'assets/images/clock.json';
+import sword from 'assets/images/sword.json';
 
 export type Data = {
   id: number;
@@ -13,19 +13,19 @@ export const data: Data[] = [
   {
     id: 1,
     image: books,
-    title: "Kelime Dağarcığını Geliştir",
-    text: "Her gün yeni kelimeler öğrenerek kelime dağarcığını geliştir.",
+    title: 'Kelime Dağarcığını Geliştir',
+    text: 'Her gün yeni kelimeler öğrenerek kelime dağarcığını geliştir.',
   },
   {
     id: 2,
     image: clock,
-    title: "Zamana Karşı Yarış",
-    text: "Zamana karşı yarışarak kendine meydan oku.",
+    title: 'Zamana Karşı Yarış',
+    text: 'Zamana karşı yarışarak kendine meydan oku.',
   },
   {
     id: 3,
     image: sword,
-    title: "Rakiplerini Yen",
-    text: "Rakiplerini yenerek sıralamada üst sıralara yüksel.",
+    title: 'Rakiplerini Yen',
+    text: 'Rakiplerini yenerek sıralamada üst sıralara yüksel.',
   },
 ];
